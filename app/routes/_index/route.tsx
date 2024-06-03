@@ -1,18 +1,18 @@
-import { MetaFunction } from '@remix-run/react';
-import MainLayout from '@/components/layouts/MainLayout';
-import Dashboard from './Dashboard';
+import MainLayout from "@/components/layouts/MainLayout";
+import { MetaFunction } from "@remix-run/react";
+import Dashboard from "./Dashboard";
 
 export const meta: MetaFunction = () => {
-    return [
-        { title: 'Welcome to FamCon' },
-        { name: 'description', content: 'Welcome to Family Contributor!' },
-    ];
+	return [
+		{ title: "Welcome to FamCon" },
+		{ name: "description", content: "Welcome to Family Contributor!" },
+	];
 };
 
 export default function Index() {
-    return (
-        <MainLayout>
-            <Dashboard />
-        </MainLayout>
-    );
+	return (
+		<MainLayout>
+			<Dashboard />
+		</MainLayout>
+	);
 }
