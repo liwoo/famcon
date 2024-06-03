@@ -32,13 +32,7 @@ import { useCallback, useState } from "react";
 import { useHydrated } from "remix-utils/use-hydrated";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
-import {
-	Card,
-	CardContent,
-	CardDescription,
-	CardHeader,
-	CardTitle,
-} from "../ui/card";
+import { Card } from "../ui/card";
 import {
 	Command,
 	CommandEmpty,
@@ -134,13 +128,11 @@ export default function MainLayout({
 						</nav>
 					</div>
 					<div className="mt-auto p-4">
-						<Card x-chunk="dashboard-02-chunk-0">
-							<UserComboBox />
-						</Card>
+						<UserComboBox />
 					</div>
 				</div>
 			</div>
-			<div className="flex flex-col gap-y-4 container">
+			<div className="flex flex-col gap-y-4">
 				<header className="w-full bg-card border rounded-lg flex items-center justify-between p-4 lg:p-6 mx-auto">
 					<h1 className="text-xl">{title}</h1>
 					<DropdownMenu>
@@ -238,10 +230,10 @@ export function UserComboBox() {
 					variant="outline"
 					role="combobox"
 					aria-expanded={open}
-					className="w-full justify-between"
+					className="w-full justify-between py-6"
 				>
 					<div className="flex w-full justify-between items-center">
-						<div className="grid grid-cols-2 grid-rows-2 text-start gap-x-2">
+						<div className="grid grid-cols-2 grid-rows-2 text-start gap-x-0">
 							<Avatar className="row-span-2">
 								<AvatarImage src="https://github.com/shadcn.png" />
 								<AvatarFallback>CN</AvatarFallback>
@@ -253,7 +245,7 @@ export function UserComboBox() {
 					</div>
 				</Button>
 			</PopoverTrigger>
-			<PopoverContent className="w-[200px] p-0">
+			<PopoverContent className="w-full p-0">
 				<Command>
 					<CommandInput placeholder="Search framework..." />
 					<CommandList>
