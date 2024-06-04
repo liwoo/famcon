@@ -2,6 +2,8 @@ import { Link } from "@remix-run/react";
 import {
   Badge,
   Bell,
+  ChevronDown,
+  ChevronsUpDown,
   CircleHelp,
   ClipboardMinus,
   CreditCard,
@@ -17,8 +19,16 @@ import {
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { UserComboBox } from "../blocks/user-combobox";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
+import { useState } from "react";
 
 const Sidebar = () => {
+  const [chevronUp, setChevronUp] = useState<boolean>(true);
+
   return (
     <div className="hidden bg-muted/40 md:block">
       <div className="flex h-full m-4 mt-0 border bg-card rounded-md max-h-screen flex-col gap-2">
@@ -43,7 +53,7 @@ const Sidebar = () => {
               />
             </div>
           </form>
-          <nav className="grid items-start px-2 text-sm font-medium lg:px-4">
+          <nav className="grid items-start px-2 text-sm font-medium lg:px-4 gap-3">
             <Link
               to="/"
               className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
@@ -72,20 +82,66 @@ const Sidebar = () => {
               <Users className="h-4 w-4" />
               User Management
             </Link>
-            <Link
-              to="#"
-              className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
-            >
-              <Pencil className="h-4 w-4" />
-              Configure
-            </Link>
-            <Link
-              to="#"
-              className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
-            >
-              <ClipboardMinus className="h-4 w-4" />
-              Reports
-            </Link>
+
+            <Collapsible>
+              <CollapsibleTrigger className="flex items-center gap-3 rounded-lg px-3 text-muted-foreground transition-all hover:text-primary">
+                <Pencil className="h-4 w-4" />
+                Configure
+                <ChevronsUpDown className="size-4" />
+              </CollapsibleTrigger>
+              <div className="flex flex-col ml-6 my-2 gap-4">
+                <CollapsibleContent>
+                  <Link
+                    to="#"
+                    className="rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary "
+                  >
+                    Months
+                  </Link>
+                </CollapsibleContent>
+                <CollapsibleContent>
+                  <Link
+                    to="#"
+                    className="rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
+                  >
+                    Categories
+                  </Link>
+                </CollapsibleContent>
+              </div>
+            </Collapsible>
+
+            <Collapsible>
+              <CollapsibleTrigger className="flex items-center gap-3 rounded-lg px-3 text-muted-foreground transition-all hover:text-primary">
+                <ClipboardMinus className="h-4 w-4" />
+                Reports
+                <ChevronsUpDown className="size-4" />
+              </CollapsibleTrigger>
+              <div className="flex flex-col ml-6 my-2 gap-4">
+                <CollapsibleContent>
+                  <Link
+                    to="#"
+                    className="rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary "
+                  >
+                    Individual Statement
+                  </Link>
+                </CollapsibleContent>
+                <CollapsibleContent>
+                  <Link
+                    to="#"
+                    className="rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
+                  >
+                    Group Statement
+                  </Link>
+                </CollapsibleContent>
+                <CollapsibleContent>
+                  <Link
+                    to="#"
+                    className="rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
+                  >
+                    Receipts
+                  </Link>
+                </CollapsibleContent>
+              </div>
+            </Collapsible>
 
             {/* Line goes here */}
             <hr className="my-2 border-t border-gray-300/30 w-full" />
