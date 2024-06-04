@@ -6,7 +6,6 @@ import {
   Command,
   CommandEmpty,
   CommandGroup,
-  CommandInput,
   CommandItem,
   CommandList,
 } from "../ui/command";
@@ -15,28 +14,25 @@ import { useState } from "react";
 
 const frameworks = [
   {
-    value: "next.js",
-    label: "Next.js",
+    value: "settings",
+    label: "Settings.js",
   },
   {
-    value: "sveltekit",
-    label: "SvelteKit",
+    value: "earnings",
+    label: "Earnings",
   },
   {
-    value: "nuxt.js",
-    label: "Nuxt.js",
-  },
-  {
-    value: "remix",
-    label: "Remix",
-  },
-  {
-    value: "astro",
-    label: "Astro",
+    value: "analytics",
+    label: "Analytics",
   },
 ];
 
-export function UserComboBox() {
+interface ProfileDropdownProps {
+  userName: string;
+  userTitle: string;
+}
+
+export function ProfileDropdown({ userName, userTitle }: ProfileDropdownProps) {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
 
@@ -55,8 +51,8 @@ export function UserComboBox() {
                 <AvatarImage src="https://github.com/shadcn.png" />
                 <AvatarFallback>CN</AvatarFallback>
               </Avatar>
-              <h2>User Name</h2>
-              <p className="">User Title</p>
+              <h2>{userName}</h2>
+              <p className="">{userTitle}</p>
             </div>
             <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
           </div>
@@ -64,7 +60,6 @@ export function UserComboBox() {
       </PopoverTrigger>
       <PopoverContent className="w-full p-0">
         <Command>
-          <CommandInput placeholder="Search framework..." />
           <CommandList>
             <CommandEmpty>No framework found.</CommandEmpty>
             <CommandGroup>

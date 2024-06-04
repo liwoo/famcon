@@ -18,15 +18,16 @@ import {
 } from "lucide-react";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
-import { UserComboBox } from "../blocks/user-combobox";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { useState } from "react";
+import { ProfileDropdown } from "./profile-dropdown";
 
 const Sidebar = () => {
+  // TODO: fix the chevron direction on the collapsible
   const [chevronUp, setChevronUp] = useState<boolean>(true);
 
   return (
@@ -34,8 +35,8 @@ const Sidebar = () => {
       <div className="flex h-full m-4 mt-0 border bg-card rounded-md max-h-screen flex-col gap-2">
         <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
           <Link to="/" className="flex items-center gap-2 font-semibold">
-            <Package2 className="h-6 w-6" />
-            <span className="">Acme Inc</span>
+            <img src="./famcon-logo.png" className="size-10" />
+            <span className="">FamCon</span>
           </Link>
           <Button variant="outline" size="icon" className="ml-auto h-8 w-8">
             <Bell className="h-4 w-4" />
@@ -171,7 +172,7 @@ const Sidebar = () => {
           </nav>
         </div>
         <div className="mt-auto p-4">
-          <UserComboBox />
+          <ProfileDropdown userName="@glenmiracle" userTitle="admin" />
         </div>
       </div>
     </div>
