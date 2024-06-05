@@ -17,59 +17,50 @@ import {
   Users,
 } from "lucide-react";
 import SomeTable from "@/components/blocks/some-table";
+import { SummaryCard } from "@/components/atoms/summary-card";
 
+const summaryCardArray = [
+  {
+    title: "Total Revenue",
+    icon: DollarSign,
+    mainValue: "$45,231.89",
+    details: "+20.1% from last month",
+  },
+
+  {
+    title: "Subscriptions",
+    icon: Users,
+    mainValue: "+2350",
+    details: "+180.1% from last month",
+  },
+
+  {
+    title: "Sales",
+    icon: CreditCard,
+    mainValue: "+12,234",
+    details: "+19% from last month",
+  },
+
+  {
+    title: "Active Now",
+    icon: Activity,
+    mainValue: "+573",
+    details: "+201 since last hour",
+  },
+];
 export default function Dashboard() {
   return (
     <div className="flex flex-col gap-y-4">
       <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
-        <Card x-chunk="dashboard-01-chunk-0">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
-            <DollarSign className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">$45,231.89</div>
-            <p className="text-xs text-muted-foreground">
-              +20.1% from last month
-            </p>
-          </CardContent>
-        </Card>
-        <Card x-chunk="dashboard-01-chunk-1">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Subscriptions</CardTitle>
-            <Users className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">+2350</div>
-            <p className="text-xs text-muted-foreground">
-              +180.1% from last month
-            </p>
-          </CardContent>
-        </Card>
-        <Card x-chunk="dashboard-01-chunk-2">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Sales</CardTitle>
-            <CreditCard className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">+12,234</div>
-            <p className="text-xs text-muted-foreground">
-              +19% from last month
-            </p>
-          </CardContent>
-        </Card>
-        <Card x-chunk="dashboard-01-chunk-3">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Active Now</CardTitle>
-            <Activity className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">+573</div>
-            <p className="text-xs text-muted-foreground">
-              +201 since last hour
-            </p>
-          </CardContent>
-        </Card>
+        {summaryCardArray.map((item, idx) => (
+          <SummaryCard
+            title={item.title}
+            mainValue={item.mainValue}
+            icon={item.icon}
+            key={idx}
+            details={item.details}
+          />
+        ))}
       </div>
       <div className="grid gap-4 md:gap-8 lg:grid-cols-2 xl:grid-cols-3">
         <Card className="xl:col-span-2">
