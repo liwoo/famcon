@@ -1,16 +1,12 @@
 import { Link } from "@remix-run/react";
 import {
-  Badge,
   Bell,
-  ChevronDown,
-  ChevronsUpDown,
+  BellRing,
+  BookOpen,
   CircleHelp,
   ClipboardMinus,
   CreditCard,
-  FileClock,
-  Info,
   LayoutDashboard,
-  Package2,
   Pencil,
   Search,
   User,
@@ -18,17 +14,26 @@ import {
 } from "lucide-react";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
-import { useState } from "react";
+
 import { ProfileDropdown } from "./profile-dropdown";
+import { NavItem } from "../atoms/nav-item";
+import { CollapsibleChild, CollapsibleItem } from "../atoms/collapsible-item";
 
 const Sidebar = () => {
   // TODO: fix the chevron direction on the collapsible
-  const [chevronUp, setChevronUp] = useState<boolean>(true);
+
+  const NavItems = [
+    { label: "Dashboard", icon: LayoutDashboard, href: "/dashboard" },
+    { label: "Transact", icon: CreditCard, href: "/transact" },
+    { label: "Contributions", icon: User, href: "/contributor" },
+    { label: "User Management", icon: Users, href: "/user-management" },
+  ];
+
+  const SecondaryNavItems = [
+    { label: "Reminder", icon: BellRing, href: "#" },
+    { label: "About", icon: BookOpen, href: "#" },
+    { label: "Help", icon: CircleHelp, href: "#" },
+  ];
 
   return (
     <div className="hidden bg-muted/40 md:block">
@@ -55,119 +60,36 @@ const Sidebar = () => {
             </div>
           </form>
           <nav className="grid items-start px-2 text-sm font-medium lg:px-4 gap-3">
-            <Link
-              to="/"
-              className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
-            >
-              <LayoutDashboard className="h-4 w-4" />
-              Dashboard
-            </Link>
-            <Link
-              to="#"
-              className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
-            >
-              <CreditCard className="h-4 w-4" />
-              Transact
-            </Link>
-            <Link
-              to="/inventory"
-              className="flex items-center gap-3 rounded-lg bg-muted px-3 py-2 text-primary transition-all hover:text-primary"
-            >
-              <User className="h-4 w-4" />
-              Contributors{" "}
-            </Link>
-            <Link
-              to="#"
-              className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
-            >
-              <Users className="h-4 w-4" />
-              User Management
-            </Link>
+            {NavItems.map((item, idx) => (
+              <NavItem
+                label={item.label}
+                href={item.href}
+                icon={item.icon}
+                key={idx}
+              />
+            ))}
 
-            <Collapsible>
-              <CollapsibleTrigger className="flex items-center gap-3 rounded-lg px-3 text-muted-foreground transition-all hover:text-primary">
-                <Pencil className="h-4 w-4" />
-                Configure
-                <ChevronsUpDown className="size-4" />
-              </CollapsibleTrigger>
-              <div className="flex flex-col ml-6 my-2 gap-4">
-                <CollapsibleContent>
-                  <Link
-                    to="#"
-                    className="rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary "
-                  >
-                    Months
-                  </Link>
-                </CollapsibleContent>
-                <CollapsibleContent>
-                  <Link
-                    to="#"
-                    className="rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
-                  >
-                    Categories
-                  </Link>
-                </CollapsibleContent>
-              </div>
-            </Collapsible>
-
-            <Collapsible>
-              <CollapsibleTrigger className="flex items-center gap-3 rounded-lg px-3 text-muted-foreground transition-all hover:text-primary">
-                <ClipboardMinus className="h-4 w-4" />
-                Reports
-                <ChevronsUpDown className="size-4" />
-              </CollapsibleTrigger>
-              <div className="flex flex-col ml-6 my-2 gap-4">
-                <CollapsibleContent>
-                  <Link
-                    to="#"
-                    className="rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary "
-                  >
-                    Individual Statement
-                  </Link>
-                </CollapsibleContent>
-                <CollapsibleContent>
-                  <Link
-                    to="#"
-                    className="rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
-                  >
-                    Group Statement
-                  </Link>
-                </CollapsibleContent>
-                <CollapsibleContent>
-                  <Link
-                    to="#"
-                    className="rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
-                  >
-                    Receipts
-                  </Link>
-                </CollapsibleContent>
-              </div>
-            </Collapsible>
+            <CollapsibleItem label="Configure" icon={Pencil}>
+              <CollapsibleChild childLabel="Months" href="#" />
+              <CollapsibleChild childLabel="Categories" href="#" />
+            </CollapsibleItem>
+            <CollapsibleItem label="Reports" icon={ClipboardMinus}>
+              <CollapsibleChild childLabel="Individual Statement" href="#" />
+              <CollapsibleChild childLabel="Group Statement" href="#" />
+              <CollapsibleChild childLabel="Receipts" href="#" />
+            </CollapsibleItem>
 
             {/* Line goes here */}
             <hr className="my-2 border-t border-gray-300/30 w-full" />
             <div className="my-4">
-              <Link
-                to="#"
-                className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
-              >
-                <FileClock className="h-4 w-4" />
-                Reminder Logs
-              </Link>
-              <Link
-                to="#"
-                className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
-              >
-                <Info className="h-4 w-4" />
-                About
-              </Link>
-              <Link
-                to="#"
-                className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
-              >
-                <CircleHelp className="h-4 w-4" />
-                Help
-              </Link>
+              {SecondaryNavItems.map((item, idx) => (
+                <NavItem
+                  label={item.label}
+                  href={item.href}
+                  icon={item.icon}
+                  key={idx}
+                />
+              ))}
             </div>
           </nav>
         </div>
