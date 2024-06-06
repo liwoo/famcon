@@ -93,8 +93,8 @@ const Sidebar = () => {
             </div>
           </nav>
         </div>
-        <div className="mt-auto p-4">
-          <ProfileDropdown userName="@glenmiracle" userTitle="admin" />
+        <div className="mt-auto p-4 w-full overflow-hidden">
+          <ProfileDropdown />
         </div>
       </div>
     </div>

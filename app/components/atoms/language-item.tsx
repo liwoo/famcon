@@ -1,5 +1,4 @@
 import { HTMLProps } from "react";
-import { DropdownMenuItem } from "../ui/dropdown-menu";
 
 interface LanguageItemProps extends HTMLProps<HTMLDivElement> {
   languageProp: string;

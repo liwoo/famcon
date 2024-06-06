@@ -1,90 +1,69 @@
-import { Check, ChevronsUpDown } from "lucide-react";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { Button } from "../ui/button";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandItem,
-  CommandList,
-} from "../ui/command";
-import { cn } from "@/lib/styles";
-import { useState } from "react";
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Link } from "@remix-run/react";
+import {
+  ChevronsUpDown,
+  HelpCircle,
+  LogOutIcon,
+  SettingsIcon,
+} from "lucide-react";
+import { AvatarImage, Avatar, AvatarFallback } from "../ui/avatar";
 
-const frameworks = [
-  {
-    value: "settings",
-    label: "Settings.js",
-  },
-  {
-    value: "earnings",
-    label: "Earnings",
-  },
-  {
-    value: "analytics",
-    label: "Analytics",
-  },
-];
-
-interface ProfileDropdownProps {
-  userName: string;
-  userTitle: string;
-}
-
-export function ProfileDropdown({ userName, userTitle }: ProfileDropdownProps) {
-  const [open, setOpen] = useState(false);
-  const [value, setValue] = useState("");
-
+export function ProfileDropdown() {
   return (
-    <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
-        <Button
-          variant="outline"
-          role="combobox"
-          aria-expanded={open}
-          className="w-full justify-between py-6"
-        >
-          <div className="flex w-full justify-between items-center">
-            <div className="grid grid-cols-2 grid-rows-2 text-start gap-x-0">
-              <Avatar className="row-span-2">
-                <AvatarImage src="https://github.com/shadcn.png" />
-                <AvatarFallback>CN</AvatarFallback>
+    <div className="w-full cursor-pointer">
+      <Popover>
+        <PopoverTrigger asChild>
+          <div className="border rounded-md p-2 flex items-center  ">
+            <div className="flex">
+              <Avatar className="size-12 rounded-md ">
+                <AvatarImage
+                  src="https://github.com/shadcn.png"
+                  alt="@shadcn"
+                />
+                <AvatarFallback>MK</AvatarFallback>
               </Avatar>
-              <h2>{userName}</h2>
-              <p className="">{userTitle}</p>
+              <div className="flex flex-col justify-between p-2 text-start">
+                <h1>Maria Karl</h1>
+                <p className="text-gray-400 text-sm">mariakrl@example.com</p>
+              </div>
             </div>
-            <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+            <ChevronsUpDown className="text-gray-500" />
           </div>
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent className="w-full p-0">
-        <Command>
-          <CommandList>
-            <CommandEmpty>No framework found.</CommandEmpty>
-            <CommandGroup>
-              {frameworks.map((framework) => (
-                <CommandItem
-                  key={framework.value}
-                  value={framework.value}
-                  onSelect={(currentValue) => {
-                    setValue(currentValue === value ? "" : currentValue);
-                    setOpen(false);
-                  }}
-                >
-                  <Check
-                    className={cn(
-                      "mr-2 h-4 w-4",
-                      value === framework.value ? "opacity-100" : "opacity-0",
-                    )}
-                  />
-                  {framework.label}
-                </CommandItem>
-              ))}
-            </CommandGroup>
-          </CommandList>
-        </Command>
-      </PopoverContent>
-    </Popover>
+        </PopoverTrigger>
+        <PopoverContent className="p-2 flex flex-col">
+          <div className="flex  items-center">
+            <div className="bg-gray-100 flex justify-center items-center p-4 size-16 rounded-md text-gray-600">
+              HR
+            </div>
+            <div className="flex flex-col justify-between p-2 text-start">
+              <h1>Role Name</h1>
+              <p className="text-gray-400">Roles</p>
+            </div>
+          </div>
+          <hr className="border-t border-gray-300 my-4 w-full" />
+          <div className="flex flex-col gap-4">
+            <Link className="flex gap-2" to="#">
+              <HelpCircle />
+              <h1>Helo & Support</h1>
+            </Link>
+            <Link className="flex gap-2" to="#">
+              <SettingsIcon />
+              <h1>Settings</h1>
+            </Link>
+            <Link className="flex gap-2 text-red-600" to="#">
+              <LogOutIcon />
+              <h1>Logout</h1>
+            </Link>
+          </div>
+        </PopoverContent>
+      </Popover>
+    </div>
   );
 }
