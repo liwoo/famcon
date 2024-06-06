@@ -16,7 +16,7 @@ import {
   DollarSign,
   Users,
 } from "lucide-react";
-import SomeTable from "@/components/blocks/some-table";
+import TransactionsTable from "@/components/blocks/transactions-table";
 import { SummaryCard } from "@/components/atoms/summary-card";
 
 const summaryCardArray = [
@@ -80,7 +80,7 @@ export default function Dashboard() {
 
           {/* some table here */}
           <CardContent>
-            <SomeTable />
+            <TransactionsTable />
           </CardContent>
         </Card>
         <Card>
