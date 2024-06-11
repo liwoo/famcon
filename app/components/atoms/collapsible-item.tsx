@@ -50,8 +50,8 @@ export const CollapsibleChild: React.FC<CollapsibleChildProps> = ({
       to={href}
       className={({ isActive }) =>
         isActive
-          ? "rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-white bg-slate-100"
-          : "rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-white"
+          ? "rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-black bg-slate-100"
+          : "rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-black"
       }
     >
       {childLabel}

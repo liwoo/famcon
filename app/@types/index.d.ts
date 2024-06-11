@@ -6,3 +6,9 @@ interface NavItemProps {
   href: string;
   children?: NavItemProps[];
 }
+
+interface ContributorsDetailsProps {
+  title: string
+  value: string
+  color: string
+}
