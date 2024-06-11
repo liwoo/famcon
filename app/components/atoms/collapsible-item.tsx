@@ -3,7 +3,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
-import { Link } from "@remix-run/react";
+import { NavLink } from "@remix-run/react";
 import { ChevronsUpDown, Pencil } from "lucide-react";
 import { LucideIcon } from "lucide-react";
 import { ReactChildren, ReactNode } from "react";
@@ -46,11 +46,15 @@ export const CollapsibleChild: React.FC<CollapsibleChildProps> = ({
   href,
 }) => {
   return (
-    <Link
+    <NavLink
       to={href}
-      className="rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
+      className={({ isActive }) =>
+        isActive
+          ? "rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-white bg-slate-100"
+          : "rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-white"
+      }
     >
       {childLabel}
-    </Link>
+    </NavLink>
   );
 };

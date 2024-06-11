@@ -1,6 +1,8 @@
+import { LucideIcon } from "lucide-react";
+
 interface NavItemProps {
-    label: string;
-    icon: React.FC;
-    href: string;
-    children?: NavItemProps[];
+  label: string;
+  icon: LucideIcon;
+  href: string;
+  children?: NavItemProps[];
 }
