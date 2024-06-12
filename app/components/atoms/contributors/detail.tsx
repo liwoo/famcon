@@ -3,8 +3,8 @@ import { ContributorsSummaryData } from "@/data/contributors";
 export const ContributorsDetails = () => {
   return (
     <div className="grid grid-cols-2 gap-8 mt-2">
-      {ContributorsSummaryData.map((item, idx) => (
-        <div key={idx} className="w-[301px] gap-[4px] flex flex-col">
+      {ContributorsSummaryData.map((item) => (
+        <div key={item.color} className="w-[301px] gap-[4px] flex flex-col">
           <div className="gap-2 flex items-center">
             <div
               className={`w-[14px] rounded-[999px] bg-${item.color}-600 h-2`}

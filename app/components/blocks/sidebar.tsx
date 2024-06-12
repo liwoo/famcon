@@ -24,7 +24,7 @@ const Sidebar = () => {
       <div className="flex h-full m-4 mt-0 border bg-card rounded-md max-h-screen flex-col gap-2">
         <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
           <Link to="/" className="flex items-center gap-2 font-semibold">
-            <img src="./famcon-logo.png" className="size-10" />
+            <img src="./famcon-logo.png" className="size-10" alt="logo" />
             <span className="">FamCon</span>
           </Link>
           <Button variant="outline" size="icon" className="ml-auto h-8 w-8">
@@ -44,7 +44,7 @@ const Sidebar = () => {
             </div>
           </form>
           <nav className="grid items-start px-2 text-sm lg:px-4 gap-3">
-            {navItems.map((item, idx) => {
+            {navItems.map((item) => {
               if (item.children) {
                 return (
                   <div className="text-lg  mt-2">
@@ -67,7 +67,7 @@ const Sidebar = () => {
 
               return (
                 <NavItem
-                  key={idx}
+                  key={item.label}
                   label={item.label}
                   href={item.href}
                   icon={item.icon}
@@ -78,12 +78,12 @@ const Sidebar = () => {
             {/* Line goes here */}
             <hr className="my-2 border-t border-gray-300/30 w-full" />
             <div className="my-4">
-              {secondaryNavItems.map((item, idx) => (
+              {secondaryNavItems.map((item) => (
                 <NavItem
                   label={item.label}
                   href={item.href}
                   icon={item.icon}
-                  key={idx}
+                  key={item.label}
                 />
               ))}
             </div>

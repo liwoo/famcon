@@ -1,4 +1,4 @@
-import { HTMLProps } from "react";
+import type { HTMLProps } from "react";
 
 interface LanguageItemProps extends HTMLProps<HTMLDivElement> {
   languageProp: string;

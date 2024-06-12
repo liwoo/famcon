@@ -145,7 +145,7 @@ export const columns: ColumnDef<Payment>[] = [
     accessorKey: "amount",
     header: () => <div className="text-right">Amount</div>,
     cell: ({ row }) => {
-      const amount = parseFloat(row.getValue("amount"));
+      const amount = Number.parseFloat(row.getValue("amount"));
 
       // Format the amount as a dollar amount
       const formatted = new Intl.NumberFormat("en-US", {

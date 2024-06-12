@@ -1,5 +1,5 @@
 import { NavLink } from "@remix-run/react";
-import { LucideIcon } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 
 interface NavItemProps {
   label: string;

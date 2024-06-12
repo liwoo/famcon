@@ -5,8 +5,8 @@ import {
 } from "@/components/ui/collapsible";
 import { NavLink } from "@remix-run/react";
 import { ChevronsUpDown, Pencil } from "lucide-react";
-import { LucideIcon } from "lucide-react";
-import { ReactChildren, ReactNode } from "react";
+import type { LucideIcon } from "lucide-react";
+import type {  ReactNode } from "react";
 
 interface CollapsibleItemProps {
   label: string;
@@ -28,7 +28,7 @@ export const CollapsibleItem = ({
       </CollapsibleTrigger>
       <div className="flex flex-col ml-6 my-2 gap-4">
         {children &&
-          children.map((child, index) => (
+          children?.map((child, index) => (
             <CollapsibleContent key={index}>{child}</CollapsibleContent>
           ))}
       </div>
