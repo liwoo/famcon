@@ -1,14 +1,16 @@
-import { NavItemProps } from "@/@types";
+import type { NavItemProps } from "@/@types";
 import {
   BellRing,
+  Book,
   BookOpen,
+   Bug,
   CircleHelp,
   CreditCard,
   LayoutDashboard,
   User,
   Users,
-  Book,
-  Bug,
+  
+ 
 } from "lucide-react";
 
 export const navItems: NavItemProps[] = [

@@ -1,10 +1,10 @@
 import MainLayout from "@/components/layouts/MainLayout";
 import * as React from "react";
 import {
-  ColumnDef,
-  ColumnFiltersState,
-  SortingState,
-  VisibilityState,
+  type ColumnDef,
+  type ColumnFiltersState,
+  type SortingState,
+  type VisibilityState,
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
@@ -229,7 +229,7 @@ export function DataTableDemo() {
         <div className="flex gap-x-4">
           <Button variant="default">
             <Plus />
-            {` `} Add New Contributor
+            {" "} Add New Contributor
           </Button>
         </div>
       </div>
