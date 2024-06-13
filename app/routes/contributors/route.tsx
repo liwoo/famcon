@@ -41,13 +41,17 @@ import {
 } from "@/components/ui/table";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Card } from "@/components/ui/card";
-import { ContributorSummaryCard } from "@/components/blocks/contributor-summary-card";
+import { DemographicMap } from "@/components/atoms/role-demographics/demographic-map";
+import { ContributorSummaryCard } from "@/components/atoms/contributors/contributor-summary-card";
 
 export default function Contributors() {
   return (
     <MainLayout title="Contributors">
       <div className="flex flex-col gap-4">
-        <ContributorSummaryCard />
+        <div className="flex gap-2">
+          <ContributorSummaryCard />
+          <DemographicMap />
+        </div>
         <Card className="p-4">
           <DataTableDemo />
         </Card>
@@ -228,8 +232,7 @@ export function DataTableDemo() {
         />
         <div className="flex gap-x-4">
           <Button variant="default">
-            <Plus />
-            {" "} Add New Contributor
+            <Plus /> Add New Contributor
           </Button>
         </div>
       </div>
