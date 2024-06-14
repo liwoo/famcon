@@ -2,9 +2,10 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { PlusIcon } from "@radix-ui/react-icons";
 import { lazy, Suspense } from "react";
+import { rollupVersion } from "vite";
 
 // dynamically importing guagechart
-const GaugeChart = lazy(() => import("react-gauge-chart"));
+const GaugeComponent = lazy(() => import("react-gauge-component"));
 
 export const DemographicMap = () => {
   return (
@@ -23,15 +24,69 @@ export const DemographicMap = () => {
           </h1>
         </div>
         <Suspense fallback={<div>Loading chart...</div>}>
-          <GaugeChart
-            id="gauge-chart1"
-            nrOfLevels={20}
-            percent={0.86}
-            colors={["#FF5F6D", "#FFC371"]}
-            arcWidth={0.3}
+          <GaugeComponent
+            className="w-full h-[160px]"
+            type="semicircle"
+            arc={{
+              cornerRadius: 0,
+              padding: 0.03,
+              subArcs: [
+                {
+                  limit: 30,
+                  color: "#1570EF",
+                },
+                {
+                  limit: 45,
+                  color: "#F58B19",
+                },
+                {
+                  limit: 70,
+                  color: "#D92D20",
+                },
+                {
+                  limit: 90,
+                  color: "#5BE12C",
+                },
+                {
+                  limit: 100,
+                  color: "#9333ea",
+                },
+              ],
+            }}
+            value={75}
+            pointer={{ type: "blob", animationDelay: 0 }}
+            labels={{
+              valueLabel: {
+                style: { fill: "#1F1F1F", border: "none" },
+              },
+            }}
           />
         </Suspense>
+
+        <div className="gap-2 grid grid-cols-3 p-2 mt-2">
+          {rolesArray.map((role) => (
+            <Roles role={role.role} color={role.color} />
+          ))}
+        </div>
       </Card>
+    </div>
+  );
+};
+
+const rolesArray = [
+  { role: "Management", color: "blue" },
+  { role: "IT & Security", color: "red" },
+  { role: "Administration", color: "blue" },
+  { role: "Human Resource", color: "orange" },
+  { role: "Sales & Marketing", color: "green" },
+  { role: "Other", color: "red" },
+];
+
+const Roles = ({ role, color }: { role: string; color: string }) => {
+  return (
+    <div className="flex gap-2 items-center text-ellipsis overflow-hidden ">
+      <span className={`bg-${color}-600 rounded-full size-[6px]`} />
+      <h1 className="text-sm font-light ">{role}</h1>
     </div>
   );
 };
