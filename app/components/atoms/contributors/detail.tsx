@@ -9,15 +9,15 @@ export const ContributorsDetails = () => {
             <div
               className={`w-[14px] rounded-[999px] bg-${item.color}-600 h-2`}
             />
-            <h1 className="leading-[24px] text-[16px] font-[400] text-[#595959] capitalize">
+            <h1 className="leading-[24px] text-[16px] font-light text-[#595959] capitalize">
               {item.title}
             </h1>
           </div>
           <span className="flex items-end gap-2">
-            <h1 className="font-[500] text-[30px] leading-[38px] ">
+            <h1 className="font-light text-[30px] leading-[38px] ">
               {item.value}
             </h1>
-            <p className="font-[400] text-[16px] leading-[24px]">
+            <p className="font-light text-[16px] leading-[24px]">
               Contributors
             </p>
           </span>

@@ -19,7 +19,7 @@ export const ContributorDropdown = () => {
       <DropdownMenuTrigger asChild>
         <Button
           variant="outline"
-          className="border-[1px] gap-2 rounded-[4px] p-[16px] "
+          className="border-[1px] gap-2 rounded-[4px] p-[16px] font-ligh"
         >
           Contributor Type
           <ChevronDownIcon className="size-[20px]" />
@@ -29,9 +29,9 @@ export const ContributorDropdown = () => {
         <DropdownMenuLabel>Panel Position</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuRadioGroup value={position} onValueChange={setPosition}>
-          <DropdownMenuRadioItem value="top">Top</DropdownMenuRadioItem>
-          <DropdownMenuRadioItem value="bottom">Bottom</DropdownMenuRadioItem>
-          <DropdownMenuRadioItem value="right">Right</DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="top">Dependent</DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="bottom">Student</DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="right">Couple</DropdownMenuRadioItem>
         </DropdownMenuRadioGroup>
       </DropdownMenuContent>
     </DropdownMenu>
