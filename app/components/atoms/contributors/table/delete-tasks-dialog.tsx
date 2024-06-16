@@ -18,7 +18,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-import { deleteTasks } from "../_lib/actions";
+// import { deleteTasks } from "../_lib/actions";
 
 interface DeleteTasksDialogProps
   extends React.ComponentPropsWithoutRef<typeof Dialog> {
@@ -61,22 +61,22 @@ export function DeleteTasksDialog({
           <Button
             aria-label="Delete selected rows"
             variant="destructive"
-            onClick={() => {
-              startDeleteTransition(async () => {
-                const { error } = await deleteTasks({
-                  ids: tasks.map((task) => task.id),
-                });
+            // onClick={() => {
+            //   startDeleteTransition(async () => {
+            //     const { error } = await deleteTasks({
+            //       ids: tasks.map((task) => task.id),
+            //     });
 
-                if (error) {
-                  toast.error(error);
-                  return;
-                }
+            //     if (error) {
+            //       toast.error(error);
+            //       return;
+            //     }
 
-                props.onOpenChange?.(false);
-                toast.success("Tasks deleted");
-                onSuccess?.();
-              });
-            }}
+            //     props.onOpenChange?.(false);
+            //     toast.success("Tasks deleted");
+            //     onSuccess?.();
+            //   });
+            // }}
             disabled={isDeletePending}
           >
             {isDeletePending && (

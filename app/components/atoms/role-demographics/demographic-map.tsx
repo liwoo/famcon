@@ -2,7 +2,6 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { PlusIcon } from "@radix-ui/react-icons";
 import { lazy, Suspense } from "react";
-import { rollupVersion } from "vite";
 
 // dynamically importing guagechart
 const GaugeComponent = lazy(() => import("react-gauge-component"));
@@ -18,50 +17,51 @@ export const DemographicMap = () => {
         Add New contributor
       </Button>
       <Card className="flex-grow flex-col p-2">
-        <div className="w-full gap-[16px] p-2">
+        <div className="w-full gap-[16px]">
           <h1 className="w-full text-[18px] leading-[28px] font-[400] text-black">
             Role Demographics
           </h1>
         </div>
-        <Suspense fallback={<div>Loading chart...</div>}>
-          <GaugeComponent
-            className="w-full h-[160px]"
-            type="semicircle"
-            arc={{
-              cornerRadius: 0,
-              padding: 0.03,
-              subArcs: [
-                {
-                  limit: 30,
-                  color: "#1570EF",
+        <div className=" overflow-hidden">
+          <Suspense fallback={<div>Loading chart...</div>}>
+            <GaugeComponent
+              type="semicircle"
+              arc={{
+                cornerRadius: 0,
+                padding: 0.03,
+                subArcs: [
+                  {
+                    limit: 30,
+                    color: "#1570EF",
+                  },
+                  {
+                    limit: 45,
+                    color: "#F58B19",
+                  },
+                  {
+                    limit: 70,
+                    color: "#D92D20",
+                  },
+                  {
+                    limit: 90,
+                    color: "#5BE12C",
+                  },
+                  {
+                    limit: 100,
+                    color: "#9333ea",
+                  },
+                ],
+              }}
+              value={75}
+              pointer={{ type: "blob", animationDelay: 0 }}
+              labels={{
+                valueLabel: {
+                  style: { fill: "#1F1F1F", border: "none" },
                 },
-                {
-                  limit: 45,
-                  color: "#F58B19",
-                },
-                {
-                  limit: 70,
-                  color: "#D92D20",
-                },
-                {
-                  limit: 90,
-                  color: "#5BE12C",
-                },
-                {
-                  limit: 100,
-                  color: "#9333ea",
-                },
-              ],
-            }}
-            value={75}
-            pointer={{ type: "blob", animationDelay: 0 }}
-            labels={{
-              valueLabel: {
-                style: { fill: "#1F1F1F", border: "none" },
-              },
-            }}
-          />
-        </Suspense>
+              }}
+            />
+          </Suspense>
+        </div>
 
         <div className="gap-2 grid grid-cols-3 p-2 mt-2">
           {rolesArray.map((role) => (

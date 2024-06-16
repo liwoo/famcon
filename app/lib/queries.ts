@@ -1,5 +1,3 @@
-import "server-only";
-
 import { dummyTasks } from "@/db/dummy-data";
 import { tasks, type Task } from "@/db/schema";
 // import type { DrizzleWhere } from "@/@types";
@@ -7,17 +5,22 @@ import { tasks, type Task } from "@/db/schema";
 
 // import { filterColumn } from "@/lib/filter-column";
 
-import { type GetTasksSchema } from "./validations";
+import { getTasksSchema, type GetTasksSchema } from "./validations";
 
 // GET TASKS
 export async function getTasks(input: GetTasksSchema) {
-  const { page, per_page, sort, title, status, priority, operator, from, to } = input;
+  const validatedInput = getTasksSchema.parse(input);
+  
+  const { page, per_page, sort, title, status, priority, operator, from, to } = validatedInput;
 
   try {
     // Offset to paginate the results
     const offset = (page - 1) * per_page;
     // Column and order to sort by
-    const [column, order] = (sort?.split(".").filter(Boolean) ?? ["createdAt", "desc"]) as [keyof Task | undefined, "asc" | "desc" | undefined];
+    const [column, order] = (sort?.split(".").filter(Boolean) ?? [
+      "createdAt",
+      "desc",
+    ]) as [keyof Task | undefined, "asc" | "desc" | undefined];
 
     // Convert the date strings to date objects
     const fromDay = from ? new Date(from) : undefined;
@@ -27,10 +30,16 @@ export async function getTasks(input: GetTasksSchema) {
       title ? (task: Task) => task.title?.includes(title) : undefined,
       status ? (task: Task) => task.status === status : undefined,
       priority ? (task: Task) => task.priority === priority : undefined,
-      fromDay && toDay ? (task: Task) => new Date(task.createdAt) >= fromDay && new Date(task.createdAt) <= toDay : undefined,
+      fromDay && toDay
+        ? (task: Task) =>
+            new Date(task.createdAt) >= fromDay &&
+            new Date(task.createdAt) <= toDay
+        : undefined,
     ].filter(Boolean) as ((task: Task) => boolean)[];
 
-    const filteredTasks = dummyTasks.filter((task) => expressions.every((expression) => expression(task)));
+    const filteredTasks = dummyTasks.filter((task) =>
+      expressions.every((expression) => expression(task)),
+    );
 
     const sortedTasks = filteredTasks.sort((a, b) => {
       if (!column || !(column in a) || !(column in b)) return 0;
@@ -52,13 +61,16 @@ export async function getTasks(input: GetTasksSchema) {
 
 export async function getTaskCountByStatus() {
   try {
-    const statusCounts = dummyTasks.reduce((acc, task) => {
-      if (!acc[task.status]) {
-        acc[task.status] = 0;
-      }
-      acc[task.status]++;
-      return acc;
-    }, {} as Record<string, number>);
+    const statusCounts = dummyTasks.reduce(
+      (acc, task) => {
+        if (!acc[task.status]) {
+          acc[task.status] = 0;
+        }
+        acc[task.status]++;
+        return acc;
+      },
+      {} as Record<string, number>,
+    );
 
     return Object.entries(statusCounts).map(([status, count]) => ({
       status,
@@ -71,13 +83,16 @@ export async function getTaskCountByStatus() {
 
 export async function getTaskCountByPriority() {
   try {
-    const priorityCounts = dummyTasks.reduce((acc, task) => {
-      if (!acc[task.priority]) {
-        acc[task.priority] = 0;
-      }
-      acc[task.priority]++;
-      return acc;
-    }, {} as Record<string, number>);
+    const priorityCounts = dummyTasks.reduce(
+      (acc, task) => {
+        if (!acc[task.priority]) {
+          acc[task.priority] = 0;
+        }
+        acc[task.priority]++;
+        return acc;
+      },
+      {} as Record<string, number>,
+    );
 
     return Object.entries(priorityCounts).map(([priority, count]) => ({
       priority,

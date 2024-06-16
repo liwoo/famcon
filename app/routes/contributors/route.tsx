@@ -12,6 +12,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
+import { SearchParams } from "@/@types";
 import {
   ArrowUpDown,
   ChevronDown,
@@ -43,8 +44,24 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Card } from "@/components/ui/card";
 import { DemographicMap } from "@/components/atoms/role-demographics/demographic-map";
 import { ContributorSummaryCard } from "@/components/atoms/contributors/contributor-summary-card";
-import { TableRender } from "@/components/atoms/contributors/table-render";
+import {
+  IndexPageProps,
+  TableRender,
+} from "@/components/atoms/contributors/table-render";
+import { DataTableSkeleton } from "@/components/atoms/contributors/table/data-table-skeleton";
 
+const searchParams: IndexPageProps["searchParams"] = {
+  // Add your search parameters here
+  page: "1",
+  per_page: "10",
+  sort: "createdAt.desc",
+  title: "Example Task",
+  status: "todo",
+  priority: "low",
+  operator: "and",
+  from: "2023-01-01",
+  to: "2023-12-31",
+};
 export default function Contributors() {
   return (
     <MainLayout title="Contributors">
@@ -54,9 +71,9 @@ export default function Contributors() {
           <DemographicMap />
         </div>
         <Card className="p-4">
-        
-        {/* table goes here */}
-        <TableRender />
+          {/* table goes here */}
+          {/* <TableRender searchParams={searchParams} /> */}
+          <DataTableSkeleton columnCount={10} />
         </Card>
       </div>
     </MainLayout>
@@ -193,5 +210,3 @@ export const columns: ColumnDef<Payment>[] = [
     },
   },
 ];
-
-

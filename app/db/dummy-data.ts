@@ -1,4 +1,4 @@
-import { NewTask } from "@/db/utils";
+import { NewTask } from "./schema";
 
 export const dummyTasks: NewTask[] = [
   {

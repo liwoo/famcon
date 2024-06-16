@@ -20,6 +20,7 @@ import { z } from "zod"
 import { useDebounce } from "@/hooks/use-debounce"
 import { useLocation } from 'react-router-dom';
 import { useSearchParams } from 'react-router-dom';
+import { DataTableFilterField } from "@/@types"
 
 
 interface UseDataTableProps<TData, TValue> {
@@ -207,9 +208,9 @@ const [searchParams, setSearchParams] = useSearchParams();
         page: pageIndex + 1,
         per_page: pageSize,
       })}`,
-      {
-        scroll: false,
-      }
+      // {
+      //   scroll: false,
+      // }
     )
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
