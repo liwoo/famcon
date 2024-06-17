@@ -80,8 +80,8 @@ export const RecentSales = () => {
         <CardTitle>Recent Sales</CardTitle>
       </CardHeader>
       <CardContent className="grid gap-8">
-        {recentSales.map((sale, index) => (
-          <div className="flex items-center gap-4" key={index}>
+        {recentSales.map((sale) => (
+          <div className="flex items-center gap-4" key={sale.name}>
             <Avatar className="hidden h-9 w-9 sm:flex">
               <AvatarImage src={sale.avatar.src} alt="Avatar" />
               <AvatarFallback>{sale.avatar.fallback}</AvatarFallback>

@@ -3,10 +3,10 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
-import { Link } from "@remix-run/react";
+import { NavLink } from "@remix-run/react";
 import { ChevronsUpDown, Pencil } from "lucide-react";
-import { LucideIcon } from "lucide-react";
-import { ReactChildren, ReactNode } from "react";
+import type { LucideIcon } from "lucide-react";
+import type {  ReactNode } from "react";
 
 interface CollapsibleItemProps {
   label: string;
@@ -28,7 +28,7 @@ export const CollapsibleItem = ({
       </CollapsibleTrigger>
       <div className="flex flex-col ml-6 my-2 gap-4">
         {children &&
-          children.map((child, index) => (
+          children?.map((child, index) => (
             <CollapsibleContent key={index}>{child}</CollapsibleContent>
           ))}
       </div>
@@ -46,11 +46,15 @@ export const CollapsibleChild: React.FC<CollapsibleChildProps> = ({
   href,
 }) => {
   return (
-    <Link
+    <NavLink
       to={href}
-      className="rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
+      className={({ isActive }) =>
+        isActive
+          ? "rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-black bg-slate-100"
+          : "rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-black"
+      }
     >
       {childLabel}
-    </Link>
+    </NavLink>
   );
 };

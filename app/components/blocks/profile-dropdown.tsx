@@ -17,10 +17,10 @@ import { AvatarImage, Avatar, AvatarFallback } from "../ui/avatar";
 
 export function ProfileDropdown() {
   return (
-    <div className="w-full cursor-pointer">
+    <div className="w-full cursor-pointer flex items-center">
       <Popover>
         <PopoverTrigger asChild>
-          <div className="border rounded-md p-2 flex items-center  ">
+          <div className="border rounded-md p-2 flex items-center ">
             <div className="flex">
               <Avatar className="size-12 rounded-md ">
                 <AvatarImage

@@ -53,12 +53,12 @@ export default function Dashboard() {
   return (
     <div className="flex flex-col gap-y-4">
       <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
-        {summaryCardArray.map((item, idx) => (
+        {summaryCardArray.map((item) => (
           <SummaryCard
             title={item.title}
             mainValue={item.mainValue}
             icon={item.icon}
-            key={idx}
+            key={item.title}
             details={item.details}
           />
         ))}

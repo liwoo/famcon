@@ -64,10 +64,9 @@ const LayoutHeader = ({ title = "Dashboard" }: LayoutHeaderProps) => {
           <DropdownMenuContent className="mt-2">
             <DropdownMenuLabel>Language</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            {langaugeArray.map((lang, idx) => (
-              <DropdownMenuItem asChild>
+            {langaugeArray.map((lang ) => (
+              <DropdownMenuItem asChild key={lang}>
                 <LanguageItem
-                  key={idx}
                   type="button"
                   className="w-full flex gap-2 items-center"
                   languageProp={lang}
