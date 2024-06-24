@@ -1,4 +1,4 @@
-import { cn } from "@/lib/styles"
+import { cn } from "@/lib/utils"
 import { Skeleton } from "@/components/ui/skeleton"
 import {
   Table,

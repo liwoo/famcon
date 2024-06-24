@@ -1,37 +1,37 @@
-import * as React from "react";
-import { dataTableConfig, type DataTableConfig } from "@/config/data-table";
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+"use client"
+
+import * as React from "react"
+
+import { dataTableConfig, type DataTableConfig } from "@/config/data-table"
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@/components/ui/tooltip";
-type FeatureFlagValue = DataTableConfig["featureFlags"][number]["value"];
+} from "@/components/ui/tooltip"
+
+type FeatureFlagValue = DataTableConfig["featureFlags"][number]["value"]
 
 interface TasksTableContextProps {
-  featureFlags: FeatureFlagValue[];
-  setFeatureFlags: React.Dispatch<React.SetStateAction<FeatureFlagValue[]>>;
+  featureFlags: FeatureFlagValue[]
+  setFeatureFlags: React.Dispatch<React.SetStateAction<FeatureFlagValue[]>>
 }
 
-// table content
 const TasksTableContext = React.createContext<TasksTableContextProps>({
   featureFlags: [],
   setFeatureFlags: () => {},
-});
+})
 
-// main useTask hook
 export function useTasksTable() {
-  const context = React.useContext(TasksTableContext);
+  const context = React.useContext(TasksTableContext)
   if (!context) {
-    throw new Error("useTasksTable must be used within a TasksTableProvider");
+    throw new Error("useTasksTable must be used within a TasksTableProvider")
   }
-  return context;
+  return context
 }
 
 export function TasksTableProvider({ children }: React.PropsWithChildren) {
-  const [featureFlags, setFeatureFlags] = React.useState<FeatureFlagValue[]>(
-    [],
-  );
+  const [featureFlags, setFeatureFlags] = React.useState<FeatureFlagValue[]>([])
 
   return (
     <TasksTableContext.Provider
@@ -81,5 +81,5 @@ export function TasksTableProvider({ children }: React.PropsWithChildren) {
       </div>
       {children}
     </TasksTableContext.Provider>
-  );
+  )
 }

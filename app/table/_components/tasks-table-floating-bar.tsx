@@ -1,4 +1,5 @@
-import * as React from "react";
+import * as React from "react"
+import { tasks, type Task } from "@/db/schema"
 import {
   ArrowUpIcon,
   CheckCircledIcon,
@@ -6,53 +7,52 @@ import {
   DownloadIcon,
   ReloadIcon,
   TrashIcon,
-} from "@radix-ui/react-icons";
-import { SelectTrigger } from "@radix-ui/react-select";
-import { type Table } from "@tanstack/react-table";
-import { toast } from "sonner";
+} from "@radix-ui/react-icons"
+import { SelectTrigger } from "@radix-ui/react-select"
+import { type Table } from "@tanstack/react-table"
+import { toast } from "sonner"
 
-import { exportTableToCSV } from "@/lib/export";
-import { Button } from "@/components/ui/button";
+import { exportTableToCSV } from "@/lib/export"
+import { Button } from "@/components/ui/button"
 import {
   Select,
   SelectContent,
   SelectGroup,
   SelectItem,
-} from "@/components/ui/select";
-import { Separator } from "@/components/ui/separator";
+} from "@/components/ui/select"
+import { Separator } from "@/components/ui/separator"
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@/components/ui/tooltip";
+} from "@/components/ui/tooltip"
+import { Kbd } from "@/components/kbd"
 
-// import { deleteTasks, updateTasks } from "../_lib/actions";
-import { Task, tasks } from "@/db/schema";
-import { Kbd } from "../../kbd";
+import { deleteTasks, updateTasks } from "../_lib/actions"
 
 interface TasksTableFloatingBarProps {
-  table: Table<Task>;
+  table: Table<Task>
 }
 
 export function TasksTableFloatingBar({ table }: TasksTableFloatingBarProps) {
-  const rows = table.getFilteredSelectedRowModel().rows;
+  const rows = table.getFilteredSelectedRowModel().rows
 
-  const [isPending, startTransition] = React.useTransition();
+  const [isPending, startTransition] = React.useTransition()
   const [method, setMethod] = React.useState<
     "update-status" | "update-priority" | "export" | "delete"
-  >();
+  >()
 
   // Clear selection on Escape key press
   React.useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") {
-        table.toggleAllRowsSelected(false);
+        table.toggleAllRowsSelected(false)
       }
     }
 
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [table]);
+    window.addEventListener("keydown", handleKeyDown)
+    return () => window.removeEventListener("keydown", handleKeyDown)
+  }, [table])
 
   return (
     <div className="fixed inset-x-0 bottom-4 z-50 mx-auto w-fit px-4">
@@ -88,23 +88,23 @@ export function TasksTableFloatingBar({ table }: TasksTableFloatingBarProps) {
           <Separator orientation="vertical" className="hidden h-5 sm:block" />
           <div className="flex items-center gap-1.5">
             <Select
-              // onValueChange={(value: Task["status"]) => {
-              //   setMethod("update-status");
+              onValueChange={(value: Task["status"]) => {
+                setMethod("update-status")
 
-              //   startTransition(async () => {
-              //     const { error } = await updateTasks({
-              //       ids: rows.map((row) => row.original.id),
-              //       status: value,
-              //     });
+                startTransition(async () => {
+                  const { error } = await updateTasks({
+                    ids: rows.map((row) => row.original.id),
+                    status: value,
+                  })
 
-              //     if (error) {
-              //       toast.error(error);
-              //       return;
-              //     }
+                  if (error) {
+                    toast.error(error)
+                    return
+                  }
 
-              //     toast.success("Tasks updated");
-              //   });
-              // }}
+                  toast.success("Tasks updated")
+                })
+              }}
             >
               <Tooltip delayDuration={250}>
                 <SelectTrigger asChild>
@@ -148,23 +148,23 @@ export function TasksTableFloatingBar({ table }: TasksTableFloatingBarProps) {
               </SelectContent>
             </Select>
             <Select
-              // onValueChange={(value: Task["priority"]) => {
-              //   setMethod("update-priority");
+              onValueChange={(value: Task["priority"]) => {
+                setMethod("update-priority")
 
-              //   startTransition(async () => {
-              //     const { error } = await updateTasks({
-              //       ids: rows.map((row) => row.original.id),
-              //       priority: value,
-              //     });
+                startTransition(async () => {
+                  const { error } = await updateTasks({
+                    ids: rows.map((row) => row.original.id),
+                    priority: value,
+                  })
 
-              //     if (error) {
-              //       toast.error(error);
-              //       return;
-              //     }
+                  if (error) {
+                    toast.error(error)
+                    return
+                  }
 
-              //     toast.success("Tasks updated");
-              //   });
-              // }}
+                  toast.success("Tasks updated")
+                })
+              }}
             >
               <Tooltip delayDuration={250}>
                 <SelectTrigger asChild>
@@ -211,14 +211,14 @@ export function TasksTableFloatingBar({ table }: TasksTableFloatingBarProps) {
                   size="icon"
                   className="size-7 border"
                   onClick={() => {
-                    setMethod("export");
+                    setMethod("export")
 
                     startTransition(() => {
                       exportTableToCSV(table, {
                         excludeColumns: ["select", "actions"],
                         onlySelected: true,
-                      });
-                    });
+                      })
+                    })
                   }}
                   disabled={isPending}
                 >
@@ -242,22 +242,22 @@ export function TasksTableFloatingBar({ table }: TasksTableFloatingBarProps) {
                   variant="secondary"
                   size="icon"
                   className="size-7 border"
-                  // onClick={() => {
-                  //   setMethod("delete");
+                  onClick={() => {
+                    setMethod("delete")
 
-                  //   startTransition(async () => {
-                  //     const { error } = await deleteTasks({
-                  //       ids: rows.map((row) => row.original.id),
-                  //     });
+                    startTransition(async () => {
+                      const { error } = await deleteTasks({
+                        ids: rows.map((row) => row.original.id),
+                      })
 
-                  //     if (error) {
-                  //       toast.error(error);
-                  //       return;
-                  //     }
+                      if (error) {
+                        toast.error(error)
+                        return
+                      }
 
-                  //     table.toggleAllRowsSelected(false);
-                  //   });
-                  // }}
+                      table.toggleAllRowsSelected(false)
+                    })
+                  }}
                   disabled={isPending}
                 >
                   {isPending && method === "delete" ? (
@@ -278,5 +278,5 @@ export function TasksTableFloatingBar({ table }: TasksTableFloatingBarProps) {
         </div>
       </div>
     </div>
-  );
+  )
 }

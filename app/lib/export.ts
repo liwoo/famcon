@@ -8,7 +8,7 @@ export function exportTableToCSV<TData>(
   table: Table<TData>,
   opts: {
     /**
-     * csv file-name.
+     * The filename for the CSV file.
      * @default "table"
      * @example "tasks"
      */

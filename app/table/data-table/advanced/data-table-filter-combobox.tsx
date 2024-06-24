@@ -1,15 +1,15 @@
-"use client";
+"use client"
 
-import * as React from "react";
-import type { DataTableFilterOption } from "@/@types";
+import * as React from "react"
+import type { DataTableFilterOption } from "@/types"
 import {
   CaretSortIcon,
   ChevronDownIcon,
   PlusIcon,
   TextIcon,
-} from "@radix-ui/react-icons";
+} from "@radix-ui/react-icons"
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button"
 import {
   Command,
   CommandEmpty,
@@ -18,21 +18,21 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-} from "@/components/ui/command";
+} from "@/components/ui/command"
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover";
+} from "@/components/ui/popover"
 
 interface DataTableFilterComboboxProps<TData> {
-  options: DataTableFilterOption<TData>[];
-  selectedOptions: DataTableFilterOption<TData>[];
+  options: DataTableFilterOption<TData>[]
+  selectedOptions: DataTableFilterOption<TData>[]
   setSelectedOptions: React.Dispatch<
     React.SetStateAction<DataTableFilterOption<TData>[]>
-  >;
-  onSelect: () => void;
-  children?: React.ReactNode;
+  >
+  onSelect: () => void
+  children?: React.ReactNode
 }
 
 export function DataTableFilterCombobox<TData>({
@@ -42,11 +42,11 @@ export function DataTableFilterCombobox<TData>({
   onSelect,
   children,
 }: DataTableFilterComboboxProps<TData>) {
-  const [value, setValue] = React.useState("");
-  const [open, setOpen] = React.useState(false);
+  const [value, setValue] = React.useState("")
+  const [open, setOpen] = React.useState(false)
   const [selectedOption, setSelectedOption] = React.useState<
     DataTableFilterOption<TData>
-  >(options[0] ?? ({} as DataTableFilterOption<TData>));
+  >(options[0] ?? ({} as DataTableFilterOption<TData>))
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -76,8 +76,8 @@ export function DataTableFilterCombobox<TData>({
                 .filter(
                   (option) =>
                     !selectedOptions.some(
-                      (selectedOption) => selectedOption.value === option.value,
-                    ),
+                      (selectedOption) => selectedOption.value === option.value
+                    )
                 )
                 .map((option) => (
                   <CommandItem
@@ -85,13 +85,13 @@ export function DataTableFilterCombobox<TData>({
                     className="capitalize"
                     value={String(option.value)}
                     onSelect={(currentValue) => {
-                      setValue(currentValue === value ? "" : currentValue);
-                      setOpen(false);
-                      setSelectedOption(option);
+                      setValue(currentValue === value ? "" : currentValue)
+                      setOpen(false)
+                      setSelectedOption(option)
                       setSelectedOptions((prev) => {
-                        return [...prev, { ...option }];
-                      });
-                      onSelect();
+                        return [...prev, { ...option }]
+                      })
+                      onSelect()
                     }}
                   >
                     {option.options.length > 0 ? (
@@ -110,7 +110,7 @@ export function DataTableFilterCombobox<TData>({
             <CommandGroup>
               <CommandItem
                 onSelect={() => {
-                  setOpen(false);
+                  setOpen(false)
                   setSelectedOptions([
                     ...selectedOptions,
                     {
@@ -120,8 +120,8 @@ export function DataTableFilterCombobox<TData>({
                       options: selectedOption?.options ?? [],
                       isMulti: true,
                     },
-                  ]);
-                  onSelect();
+                  ])
+                  onSelect()
                 }}
               >
                 <PlusIcon className="mr-2 size-4" aria-hidden="true" />
@@ -132,5 +132,5 @@ export function DataTableFilterCombobox<TData>({
         </Command>
       </PopoverContent>
     </Popover>
-  );
+  )
 }

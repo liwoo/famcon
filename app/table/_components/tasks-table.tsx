@@ -1,22 +1,20 @@
 "use client"
 
 import * as React from "react"
-// import { tasks, type Task } from "@/db/schema"
+import { tasks, type Task } from "@/db/schema"
+import type { DataTableFilterField } from "@/types"
 
-// import { DataTableFilterField } from "@/@types"
-import { DataTable } from "./data-table"
-import { DataTableAdvancedToolbar } from "./advanced/data-table-advanced-toolbar"
-import { TasksTableToolbarActions } from "./task-table-toolbar-actions"
-// import { TasksTableFloatingBar } from "./task-table-floating-bar"
-import { getTasks } from "@/lib/queries"
-
-import { DataTableToolbar } from "./data-table-toolbar"
-import { useTasksTable } from "./task-table-provider"
-import { getColumns } from "./task-table-columns"
 import { useDataTable } from "@/hooks/use-data-table"
-import { getPriorityIcon, getStatusIcon } from "@/lib/temp_lib/utils"
-import { Task, tasks } from "@/db/schema"
-import { DataTableFilterField } from "@/@types"
+import { DataTableAdvancedToolbar } from "@/components/data-table/advanced/data-table-advanced-toolbar"
+import { DataTable } from "@/components/data-table/data-table"
+import { DataTableToolbar } from "@/components/data-table/data-table-toolbar"
+
+import type { getTasks } from "../_lib/queries"
+import { getPriorityIcon, getStatusIcon } from "../_lib/utils"
+import { getColumns } from "./tasks-table-columns"
+import { TasksTableFloatingBar } from "./tasks-table-floating-bar"
+import { useTasksTable } from "./tasks-table-provider"
+import { TasksTableToolbarActions } from "./tasks-table-toolbar-actions"
 
 interface TasksTableProps {
   tasksPromise: ReturnType<typeof getTasks>
@@ -24,9 +22,9 @@ interface TasksTableProps {
 
 export function TasksTable({ tasksPromise }: TasksTableProps) {
   // Feature flags for showcasing some additional features. Feel free to remove them.
-  const { featureFlags } = useTasksTable();
+  const { featureFlags } = useTasksTable()
 
-  // const { data, pageCount } = React.use(tasksPromise)
+  const { data, pageCount } = React.use(tasksPromise)
 
   // Memoize the columns so they don't re-render on every render
   const columns = React.useMemo(() => getColumns(), [])
@@ -84,11 +82,11 @@ export function TasksTable({ tasksPromise }: TasksTableProps) {
   return (
     <DataTable
       table={table}
-      // floatingBar={
-      //   featureFlags.includes("floatingBar") ? (
-      //     <TasksTableFloatingBar table={table} />
-      //   ) : null
-      // }
+      floatingBar={
+        featureFlags.includes("floatingBar") ? (
+          <TasksTableFloatingBar table={table} />
+        ) : null
+      }
     >
       {featureFlags.includes("advancedFilter") ? (
         <DataTableAdvancedToolbar table={table} filterFields={filterFields}>

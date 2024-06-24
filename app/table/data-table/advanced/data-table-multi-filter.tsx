@@ -1,9 +1,8 @@
 import * as React from "react"
-
-import type { DataTableFilterOption } from "@/@types"
+import { usePathname, useRouter, useSearchParams } from "next/navigation"
+import type { DataTableFilterOption } from "@/types"
 import {
   CopyIcon,
-  CursorArrowIcon,
   DotsHorizontalIcon,
   TextAlignCenterIcon,
   TrashIcon,
@@ -36,7 +35,6 @@ import {
 import { Separator } from "@/components/ui/separator"
 
 import { DataTableFacetedFilter } from "../data-table-faceted-filter"
-import { useLocation, useNavigate, useSearchParams } from "@remix-run/react"
 
 interface DataTableMultiFilterProps<TData> {
   table: Table<TData>
@@ -134,10 +132,9 @@ export function MultiFilterRow<TData>({
   operator,
   setOperator,
 }: MultiFilterRowProps<TData>) {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const currentPathName = location.pathname;
-  const searchParams = useSearchParams();
+  const router = useRouter()
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
   const [value, setValue] = React.useState("")
   const debounceValue = useDebounce(value, 500)
 
@@ -179,26 +176,26 @@ export function MultiFilterRow<TData>({
   // Update query string
   React.useEffect(() => {
     if (debounceValue.length > 0) {
-      navigate(
-        `${currentPathName}?${createQueryString({
+      router.push(
+        `${pathname}?${createQueryString({
           [selectedOption?.value ?? ""]: `${debounceValue}${
             debounceValue.length > 0 ? `.${filterVariety}` : ""
           }`,
         })}`,
-        // {
-        //   scroll: false,
-        // }
+        {
+          scroll: false,
+        }
       )
     }
 
     if (debounceValue.length === 0) {
-      navigate(
-        `${currentPathName}?${createQueryString({
+      router.push(
+        `${pathname}?${createQueryString({
           [selectedOption?.value ?? ""]: null,
         })}`,
-        // {
-        //   scroll: false,
-        // }
+        {
+          scroll: false,
+        }
       )
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -207,13 +204,13 @@ export function MultiFilterRow<TData>({
   // Update operator query string
   React.useEffect(() => {
     if (operator?.value) {
-      navigate(
-        `${currentPathName}?${createQueryString({
+      router.push(
+        `${pathname}?${createQueryString({
           operator: operator.value,
         })}`,
-        // {
-        //   scroll: false,
-        // }
+        {
+          scroll: false,
+        }
       )
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

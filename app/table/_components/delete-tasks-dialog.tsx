@@ -1,12 +1,12 @@
-"use client";
+"use client"
 
-import * as React from "react";
-import { type Task } from "@/db/schema";
-import { ReloadIcon, TrashIcon } from "@radix-ui/react-icons";
-import { type Row } from "@tanstack/react-table";
-import { toast } from "sonner";
+import * as React from "react"
+import { type Task } from "@/db/schema"
+import { ReloadIcon, TrashIcon } from "@radix-ui/react-icons"
+import { type Row } from "@tanstack/react-table"
+import { toast } from "sonner"
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button"
 import {
   Dialog,
   DialogClose,
@@ -16,15 +16,15 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
+} from "@/components/ui/dialog"
 
-// import { deleteTasks } from "../_lib/actions";
+import { deleteTasks } from "../_lib/actions"
 
 interface DeleteTasksDialogProps
   extends React.ComponentPropsWithoutRef<typeof Dialog> {
-  tasks: Row<Task>["original"][];
-  showTrigger?: boolean;
-  onSuccess?: () => void;
+  tasks: Row<Task>["original"][]
+  showTrigger?: boolean
+  onSuccess?: () => void
 }
 
 export function DeleteTasksDialog({
@@ -33,7 +33,7 @@ export function DeleteTasksDialog({
   onSuccess,
   ...props
 }: DeleteTasksDialogProps) {
-  const [isDeletePending, startDeleteTransition] = React.useTransition();
+  const [isDeletePending, startDeleteTransition] = React.useTransition()
 
   return (
     <Dialog {...props}>
@@ -61,22 +61,22 @@ export function DeleteTasksDialog({
           <Button
             aria-label="Delete selected rows"
             variant="destructive"
-            // onClick={() => {
-            //   startDeleteTransition(async () => {
-            //     const { error } = await deleteTasks({
-            //       ids: tasks.map((task) => task.id),
-            //     });
+            onClick={() => {
+              startDeleteTransition(async () => {
+                const { error } = await deleteTasks({
+                  ids: tasks.map((task) => task.id),
+                })
 
-            //     if (error) {
-            //       toast.error(error);
-            //       return;
-            //     }
+                if (error) {
+                  toast.error(error)
+                  return
+                }
 
-            //     props.onOpenChange?.(false);
-            //     toast.success("Tasks deleted");
-            //     onSuccess?.();
-            //   });
-            // }}
+                props.onOpenChange?.(false)
+                toast.success("Tasks deleted")
+                onSuccess?.()
+              })
+            }}
             disabled={isDeletePending}
           >
             {isDeletePending && (
@@ -90,5 +90,5 @@ export function DeleteTasksDialog({
         </DialogFooter>
       </DialogContent>
     </Dialog>
-  );
+  )
 }

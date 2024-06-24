@@ -1,16 +1,18 @@
+"use client"
 
 import * as React from "react"
-// import { useSearchParams } from "next/navigation"
+import { useSearchParams } from "next/navigation"
+import type { DataTableFilterField, DataTableFilterOption } from "@/types"
 import { CaretSortIcon, PlusIcon } from "@radix-ui/react-icons"
 import type { Table } from "@tanstack/react-table"
-import { cn } from "@/lib/styles"
+
+import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
+import { DataTableFilterCombobox } from "@/components/data-table/advanced/data-table-filter-combobox"
+import { DataTableViewOptions } from "@/components/data-table/data-table-view-options"
+
 import { DataTableFilterItem } from "./data-table-filter-item"
 import { DataTableMultiFilter } from "./data-table-multi-filter"
-import { DataTableFilterField, DataTableFilterOption } from "@/@types"
-import { useSearchParams } from "@remix-run/react"
-import { DataTableFilterCombobox } from "./data-table-filter-combobox"
-import { DataTableViewOptions } from "../data-table-view-options"
 
 interface DataTableAdvancedToolbarProps<TData>
   extends React.HTMLAttributes<HTMLDivElement> {
@@ -25,7 +27,7 @@ export function DataTableAdvancedToolbar<TData>({
   className,
   ...props
 }: DataTableAdvancedToolbarProps<TData>) {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const searchParams = useSearchParams()
 
   const options = React.useMemo<DataTableFilterOption<TData>[]>(() => {
     return filterFields.map((field) => {

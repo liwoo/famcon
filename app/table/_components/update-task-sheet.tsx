@@ -1,23 +1,13 @@
-"use client";
+"use client"
 
-import * as React from "react";
-import { tasks } from "@/db/schema";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { PlusIcon, ReloadIcon } from "@radix-ui/react-icons";
-import { useForm } from "react-hook-form";
-import { toast } from "sonner";
+import * as React from "react"
+import { tasks, type Task } from "@/db/schema"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { ReloadIcon } from "@radix-ui/react-icons"
+import { useForm } from "react-hook-form"
+import { toast } from "sonner"
 
-import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
@@ -25,7 +15,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
+} from "@/components/ui/form"
 import {
   Select,
   SelectContent,
@@ -33,53 +23,69 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
+} from "@/components/ui/select"
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+} from "@/components/ui/sheet"
+import { Textarea } from "@/components/ui/textarea"
 
-// import { createTask } from "../_lib/actions";
-// import { createTaskSchema, type CreateTaskSchema } from "../_lib/validations";
+import { updateTask } from "../_lib/actions"
+import { updateTaskSchema, type UpdateTaskSchema } from "../_lib/validations"
 
-export function CreateTaskDialog() {
-  const [open, setOpen] = React.useState(false);
-  const [isCreatePending, startCreateTransition] = React.useTransition();
+interface UpdateTaskSheetProps
+  extends React.ComponentPropsWithRef<typeof Sheet> {
+  task: Task
+}
 
-  const form = useForm<CreateTaskSchema>({
-    resolver: zodResolver(createTaskSchema),
-  });
+export function UpdateTaskSheet({ task, ...props }: UpdateTaskSheetProps) {
+  const [isUpdatePending, startUpdateTransition] = React.useTransition()
 
-  // function onSubmit(input: CreateTaskSchema) {
-  //   startCreateTransition(async () => {
-  //     const { error } = await createTask(input);
+  const form = useForm<UpdateTaskSchema>({
+    resolver: zodResolver(updateTaskSchema),
+    defaultValues: {
+      title: task.title ?? "",
+      label: task.label,
+      status: task.status,
+      priority: task.priority,
+    },
+  })
 
-  //     if (error) {
-  //       toast.error(error);
-  //       return;
-  //     }
+  function onSubmit(input: UpdateTaskSchema) {
+    startUpdateTransition(async () => {
+      const { error } = await updateTask({
+        id: task.id,
+        ...input,
+      })
 
-  //     form.reset();
-  //     setOpen(false);
-  //     toast.success("Task created");
-  //   });
-  // }
+      if (error) {
+        toast.error(error)
+        return
+      }
+
+      form.reset()
+      props.onOpenChange?.(false)
+      toast.success("Task updated")
+    })
+  }
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <Button variant="outline" size="sm">
-          <PlusIcon className="mr-2 size-4" aria-hidden="true" />
-          New task
-        </Button>
-      </DialogTrigger>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>Create task</DialogTitle>
-          <DialogDescription>
-            Fill in the details below to create a new task.
-          </DialogDescription>
-        </DialogHeader>
+    <Sheet {...props}>
+      <SheetContent className="flex flex-col gap-6 sm:max-w-md">
+        <SheetHeader className="text-left">
+          <SheetTitle>Update task</SheetTitle>
+          <SheetDescription>
+            Update the task details and save the changes
+          </SheetDescription>
+        </SheetHeader>
         <Form {...form}>
           <form
-            // onSubmit={form.handleSubmit(onSubmit)}
+            onSubmit={form.handleSubmit(onSubmit)}
             className="flex flex-col gap-4"
           >
             <FormField
@@ -198,25 +204,25 @@ export function CreateTaskDialog() {
                 </FormItem>
               )}
             />
-            <DialogFooter className="gap-2 pt-2 sm:space-x-0">
-              <DialogClose asChild>
+            <SheetFooter className="gap-2 pt-2 sm:space-x-0">
+              <SheetClose asChild>
                 <Button type="button" variant="outline">
                   Cancel
                 </Button>
-              </DialogClose>
-              <Button disabled={isCreatePending}>
-                {isCreatePending && (
+              </SheetClose>
+              <Button disabled={isUpdatePending}>
+                {isUpdatePending && (
                   <ReloadIcon
                     className="mr-2 size-4 animate-spin"
                     aria-hidden="true"
                   />
                 )}
-                Create
+                Save
               </Button>
-            </DialogFooter>
+            </SheetFooter>
           </form>
         </Form>
-      </DialogContent>
-    </Dialog>
-  );
+      </SheetContent>
+    </Sheet>
+  )
 }

@@ -1,7 +1,7 @@
-import * as React from "react";
-import { flexRender, type Table as TanstackTable } from "@tanstack/react-table";
+import * as React from "react"
+import { flexRender, type Table as TanstackTable } from "@tanstack/react-table"
 
-import { cn } from "@/lib/styles";
+import { cn } from "@/lib/utils"
 import {
   Table,
   TableBody,
@@ -9,15 +9,15 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
-import { DataTablePagination } from "./data-table-pagination";
+} from "@/components/ui/table"
+import { DataTablePagination } from "@/components/data-table/data-table-pagination"
 
 interface DataTableProps<TData> extends React.HTMLAttributes<HTMLDivElement> {
   /**
    * The table instance returned from useDataTable hook with pagination, sorting, filtering, etc.
    * @type TanstackTable<TData>
    */
-  table: TanstackTable<TData>;
+  table: TanstackTable<TData>
 
   /**
    * The floating bar to render at the bottom of the table on row selection.
@@ -25,7 +25,7 @@ interface DataTableProps<TData> extends React.HTMLAttributes<HTMLDivElement> {
    * @type React.ReactNode | null
    * @example floatingBar={<TasksTableFloatingBar table={table} />}
    */
-  floatingBar?: React.ReactNode | null;
+  floatingBar?: React.ReactNode | null
 }
 
 export function DataTable<TData>({
@@ -53,10 +53,10 @@ export function DataTable<TData>({
                         ? null
                         : flexRender(
                             header.column.columnDef.header,
-                            header.getContext(),
+                            header.getContext()
                           )}
                     </TableHead>
-                  );
+                  )
                 })}
               </TableRow>
             ))}
@@ -72,7 +72,7 @@ export function DataTable<TData>({
                     <TableCell key={cell.id}>
                       {flexRender(
                         cell.column.columnDef.cell,
-                        cell.getContext(),
+                        cell.getContext()
                       )}
                     </TableCell>
                   ))}
@@ -96,5 +96,5 @@ export function DataTable<TData>({
         {table.getFilteredSelectedRowModel().rows.length > 0 && floatingBar}
       </div>
     </div>
-  );
+  )
 }

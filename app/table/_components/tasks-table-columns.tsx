@@ -1,15 +1,16 @@
-// Importing the necessary dependencies and components
-"use client";
+"use client"
 
-import * as React from "react";
-import { DotsHorizontalIcon } from "@radix-ui/react-icons";
-import { type ColumnDef } from "@tanstack/react-table";
-// import { toast } from "sonner";
+import * as React from "react"
+import { tasks, type Task } from "@/db/schema"
+import { DotsHorizontalIcon } from "@radix-ui/react-icons"
+import { type ColumnDef } from "@tanstack/react-table"
+import { toast } from "sonner"
 
-import { formatDate } from "@/lib/utils";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
+import { getErrorMessage } from "@/lib/handle-error"
+import { formatDate } from "@/lib/utils"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import { Checkbox } from "@/components/ui/checkbox"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -22,21 +23,14 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from "@/components/ui/dropdown-menu"
+import { DataTableColumnHeader } from "@/components/data-table/data-table-column-header"
 
-// Importing the dummy tasks data
-import { dummyTasks } from "@/db/dummy-data";  // Adjust the import path as necessary
+import { updateTask } from "../_lib/actions"
+import { getPriorityIcon, getStatusIcon } from "../_lib/utils"
+import { DeleteTasksDialog } from "./delete-tasks-dialog"
+import { UpdateTaskSheet } from "./update-task-sheet"
 
-// import { updateTask } from "../_lib/actions";
-
-import { DeleteTasksDialog } from "./delete-tasks-dialog";
-import { UpdateTaskSheet } from "./update-task-sheet";
-import { DataTableColumnHeader } from "./data-table-column-header";
-import { getErrorMessage } from "@/lib/handle-error";
-import { getPriorityIcon, getStatusIcon } from "@/lib/temp_lib/utils";
-import { Task, tasks } from "@/db/schema";
-
-// Fetch the columns definition for the DataTable
 export function getColumns(): ColumnDef<Task>[] {
   return [
     {
@@ -79,8 +73,8 @@ export function getColumns(): ColumnDef<Task>[] {
       ),
       cell: ({ row }) => {
         const label = tasks.label.enumValues.find(
-          (label: any) => label === row.original.label,
-        );
+          (label) => label === row.original.label
+        )
 
         return (
           <div className="flex space-x-2">
@@ -89,7 +83,7 @@ export function getColumns(): ColumnDef<Task>[] {
               {row.getValue("title")}
             </span>
           </div>
-        );
+        )
       },
     },
     {
@@ -99,12 +93,12 @@ export function getColumns(): ColumnDef<Task>[] {
       ),
       cell: ({ row }) => {
         const status = tasks.status.enumValues.find(
-          (status: any) => status === row.original.status,
-        );
+          (status) => status === row.original.status
+        )
 
-        if (!status) return null;
+        if (!status) return null
 
-        const Icon = getStatusIcon(status);
+        const Icon = getStatusIcon(status)
 
         return (
           <div className="flex w-[6.25rem] items-center">
@@ -114,10 +108,10 @@ export function getColumns(): ColumnDef<Task>[] {
             />
             <span className="capitalize">{status}</span>
           </div>
-        );
+        )
       },
       filterFn: (row, id, value) => {
-        return Array.isArray(value) && value.includes(row.getValue(id));
+        return Array.isArray(value) && value.includes(row.getValue(id))
       },
     },
     {
@@ -127,12 +121,12 @@ export function getColumns(): ColumnDef<Task>[] {
       ),
       cell: ({ row }) => {
         const priority = tasks.priority.enumValues.find(
-          (priority: any) => priority === row.original.priority,
-        );
+          (priority) => priority === row.original.priority
+        )
 
-        if (!priority) return null;
+        if (!priority) return null
 
-        const Icon = getPriorityIcon(priority);
+        const Icon = getPriorityIcon(priority)
 
         return (
           <div className="flex items-center">
@@ -142,10 +136,10 @@ export function getColumns(): ColumnDef<Task>[] {
             />
             <span className="capitalize">{priority}</span>
           </div>
-        );
+        )
       },
       filterFn: (row, id, value) => {
-        return Array.isArray(value) && value.includes(row.getValue(id));
+        return Array.isArray(value) && value.includes(row.getValue(id))
       },
     },
     {
@@ -158,11 +152,11 @@ export function getColumns(): ColumnDef<Task>[] {
     {
       id: "actions",
       cell: function Cell({ row }) {
-        const [isUpdatePending, startUpdateTransition] = React.useTransition();
+        const [isUpdatePending, startUpdateTransition] = React.useTransition()
         const [showUpdateTaskSheet, setShowUpdateTaskSheet] =
-          React.useState(false);
+          React.useState(false)
         const [showDeleteTaskDialog, setShowDeleteTaskDialog] =
-          React.useState(false);
+          React.useState(false)
 
         return (
           <>
@@ -197,23 +191,23 @@ export function getColumns(): ColumnDef<Task>[] {
                   <DropdownMenuSubContent>
                     <DropdownMenuRadioGroup
                       value={row.original.label}
-                      // onValueChange={(value) => {
-                      //   startUpdateTransition(() => {
-                      //     toast.promise(
-                      //       updateTask({
-                      //         id: row.original.id,
-                      //         label: value as Task["label"],
-                      //       }),
-                      //       {
-                      //         loading: "Updating...",
-                      //         success: "Label updated",
-                      //         error: (err) => getErrorMessage(err),
-                      //       },
-                      //     );
-                      //   });
-                      // }}
+                      onValueChange={(value) => {
+                        startUpdateTransition(() => {
+                          toast.promise(
+                            updateTask({
+                              id: row.original.id,
+                              label: value as Task["label"],
+                            }),
+                            {
+                              loading: "Updating...",
+                              success: "Label updated",
+                              error: (err) => getErrorMessage(err),
+                            }
+                          )
+                        })
+                      }}
                     >
-                      {tasks.label.enumValues.map((label: any) => (
+                      {tasks.label.enumValues.map((label) => (
                         <DropdownMenuRadioItem
                           key={label}
                           value={label}
@@ -236,8 +230,8 @@ export function getColumns(): ColumnDef<Task>[] {
               </DropdownMenuContent>
             </DropdownMenu>
           </>
-        );
+        )
       },
     },
-  ];
+  ]
 }
