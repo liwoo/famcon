@@ -101,6 +101,9 @@ dependencies:
   isbot:
     specifier: 5.1.0
     version: 5.1.0
+  json-as-xlsx:
+    specifier: ^2.5.6
+    version: 2.5.6
   lucide-react:
     specifier: ^0.381.0
     version: 0.381.0(react@18.2.0)
@@ -634,6 +637,12 @@ packages:
     requiresBuild: true
     dev: true
     optional: true
+
+  /@e965/xlsx@0.20.1:
+    resolution: {integrity: sha512-zRv8NLB1H6aqQyZt3/gLjd0xkZsH+/WIRi4YHAw1koESNTPPmzXJbPqO2HMN7DZB1vnF1USKxQ9ZvS0S9Lqmbg==}
+    engines: {node: '>=0.8'}
+    hasBin: true
+    dev: false
 
   /@emotion/hash@0.9.1:
     resolution: {integrity: sha512-gJB6HLm5rYwSLI6PQa+X1t5CFGrv1J1TWG+sOyMCeKz2ojaj6Fnl/rZEspogG+cvqbt4AE/2eIyD2QfLKTBNlQ==}
@@ -5046,6 +5055,12 @@ packages:
     engines: {node: '>=6'}
     hasBin: true
     dev: true
+
+  /json-as-xlsx@2.5.6:
+    resolution: {integrity: sha512-z7phlB+VgS9wZv2N4SBKlguC3C7uauSj2PYSZICCrPaiu1lu8zkCpzZ4sOHWi0/3Je0CJl87q+J+3mpZbxpOew==}
+    dependencies:
+      '@e965/xlsx': 0.20.1
+    dev: false
 
   /json-parse-even-better-errors@3.0.2:
     resolution: {integrity: sha512-fi0NG4bPjCHunUJffmLd0gxssIgkNmArMvis4iNah6Owg1MCJjWhEcDLmsK6iGkJq3tHwbDkTlce70/tmXN4cQ==}
