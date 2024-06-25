@@ -29,6 +29,7 @@ import {
 import { Button } from "../ui/button";
 import { useState } from "react";
 import { Input } from "../ui/input";
+import { exportTableToCSV } from "@/lib/xlsx";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -77,10 +78,18 @@ export function DataTable<TData, TValue>({
           }
           className="max-w-sm"
         />
-        <Button className="ml-4">Export to CSV</Button>
+        <Button
+          className="ml-4 bg-green-600"
+          onClick={() => exportTableToCSV(table)}
+        >
+          Export to CSV
+        </Button>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="ml-auto">
+            <Button
+              variant="outline"
+              className="ml-auto bg-orange-600 text-white"
+            >
               Columns
             </Button>
           </DropdownMenuTrigger>
