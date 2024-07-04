@@ -79,13 +79,14 @@ const Sidebar: FC<SidebarProps> = ({
             )}
           >
             {navItems.map((item) => {
-              if (item.children && minimalSidebar == false) {
+              if (item.children) {
                 return (
                   <div className="lg:text-lg mt-2">
                     <CollapsibleItem
                       key={item.label}
                       label={minimalSidebar ? "" : item.label}
                       icon={item.icon}
+                      withMinimalSidebar={minimalSidebar}
                     >
                       {item.children.map((child) => (
                         <CollapsibleChild
