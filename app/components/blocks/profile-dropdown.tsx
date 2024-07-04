@@ -47,8 +47,10 @@ export function ProfileDropdown({ withMinimal }: ProfileDropdownProps) {
           </div>
         </PopoverTrigger>
         <PopoverContent
+          side="top"
+          align="center"
           className={cn("p-2 flex flex-col ", {
-            "items-center justify-center border-none shadow-none  w-auto":
+            "items-center justify-center border-none shadow-none  w-auto dark:bg-none bg-none":
               withMinimal,
           })}
         >

@@ -46,17 +46,11 @@ import { ContributorSummaryCard } from "@/components/atoms/contributors/contribu
 import { columns } from "@/components/contributions/columns";
 import { DataTable } from "@/components/contributions/data-table";
 import { contributors } from "@/components/contributions/data";
+import { AddContributor } from "@/components/atoms/contributors/Create-Contributors/components/new-user";
 
 export default function Contributors() {
   return (
-    <MainLayout
-      title="Contributors"
-      action={
-        <Button className="bg-teal-900">
-          <Plus /> Add Contributor
-        </Button>
-      }
-    >
+    <MainLayout title="Contributors" action={<AddContributor />}>
       <div className="flex flex-col gap-4">
         <div className="flex gap-2 w-full">
           <ContributorSummaryCard />
