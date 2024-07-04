@@ -6,7 +6,7 @@ import { DemographicMap } from "@/components/atoms/role-demographics/demographic
 import { ContributorSummaryCard } from "@/components/atoms/contributors/contributor-summary-card";
 
 import { Card } from "@/components/ui/card";
-import { Contributors, columns } from "@/components/contributions/columns";
+import { columns } from "@/components/contributions/columns";
 import { Plus } from "lucide-react";
 
 import { DataTable } from "@/components/contributions/data-table";
@@ -28,9 +28,8 @@ export default function Contributors() {
         </div>
         <Card className="p-4">
           {/* table goes here */}
-          {/* <TableRender searchParams={searchParams} /> */}
+
           {/* <DataTableSkeleton columnCount={10} /> */}
-          {/* <TransactionsTable /> */}
           <DataTable columns={columns} data={contributors} />
         </Card>
       </div>
