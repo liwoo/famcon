@@ -109,10 +109,6 @@ export const columns: ColumnDef<Contributors>[] = [
     },
   },
   {
-    accessorKey: "contributionMethod",
-    header: "Method",
-  },
-  {
     id: "actions",
     cell: ({ row }) => {
       const contributor = row.original;

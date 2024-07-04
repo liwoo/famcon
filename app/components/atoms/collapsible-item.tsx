@@ -6,7 +6,7 @@ import {
 import { NavLink } from "@remix-run/react";
 import { ChevronsUpDown, Pencil } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import type {  ReactNode } from "react";
+import type { ReactNode } from "react";
 
 interface CollapsibleItemProps {
   label: string;
@@ -22,7 +22,7 @@ export const CollapsibleItem = ({
   return (
     <Collapsible>
       <CollapsibleTrigger className="flex items-center gap-3 rounded-lg px-3 text-muted-foreground transition-all hover:text-primary">
-        <Icon className="size-4" />
+        <Icon className="size-6" />
         {label}
         <ChevronsUpDown className="size-4" />
       </CollapsibleTrigger>
