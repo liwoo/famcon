@@ -12,6 +12,14 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { buttonVariants } from "../ui/button";
+import { cn } from "@/lib/styles";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 interface CollapsibleItemProps {
   label: string;
@@ -42,13 +50,27 @@ export const CollapsibleItem = ({
     </Collapsible>
   ) : (
     <Popover>
-      <PopoverTrigger className="flex items-center gap-3 rounded-lg px-3 text-muted-foreground transition-all hover:text-primary">
-        <Icon className="size-6" />
-        {label}
-      </PopoverTrigger>
+      <TooltipProvider>
+        <Tooltip>
+          <PopoverTrigger className="flex items-center gap-3 rounded-lg px-3 text-muted-foreground transition-all hover:text-primary">
+            <TooltipTrigger>
+              <Icon className="size-6" />
+            </TooltipTrigger>
+            <TooltipContent className="w-auto bg-white z-999">
+              <p className="text-black text-md ">{label}</p>
+            </TooltipContent>
+          </PopoverTrigger>
+        </Tooltip>
+      </TooltipProvider>
       <PopoverContent className="w-auto">
         {children &&
-          children.map((child, index) => <div key={index}>{child}</div>)}
+          children.map((child, index) => (
+            <div key={index} className="flex flex-col gap-2 items-start">
+              <div className={buttonVariants({ variant: "ghost" })}>
+                {child}
+              </div>
+            </div>
+          ))}
       </PopoverContent>
     </Popover>
   );

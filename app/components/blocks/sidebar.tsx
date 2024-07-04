@@ -84,16 +84,14 @@ const Sidebar: FC<SidebarProps> = ({
                   <div className="lg:text-lg mt-2">
                     <CollapsibleItem
                       key={item.label}
-                      label={minimalSidebar ? "" : item.label}
+                      label={item.label}
                       icon={item.icon}
                       withMinimalSidebar={minimalSidebar}
                     >
                       {item.children.map((child) => (
                         <CollapsibleChild
                           key={child.label}
-                          childLabel={
-                            minimalSidebar ? child.label[0] : child.label
-                          }
+                          childLabel={child.label}
                           href={child.href}
                         />
                       ))}
@@ -105,7 +103,7 @@ const Sidebar: FC<SidebarProps> = ({
               return (
                 <NavItem
                   key={item.label}
-                  label={minimalSidebar ? null : item.label}
+                  label={item.label}
                   href={item.href}
                   icon={item.icon}
                   minimal={minimalSidebar}
@@ -119,7 +117,7 @@ const Sidebar: FC<SidebarProps> = ({
             <div className="my-4">
               {secondaryNavItems.map((item) => (
                 <NavItem
-                  label={minimalSidebar ? "" : item.label}
+                  label={item.label}
                   href={item.href}
                   icon={item.icon}
                   key={item.label}
