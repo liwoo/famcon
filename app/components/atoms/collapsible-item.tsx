@@ -57,7 +57,7 @@ export const CollapsibleItem = ({
               <Icon className="size-6" />
             </TooltipTrigger>
             <TooltipContent className="w-auto bg-white z-999">
-              <p className="text-black text-md ">{label}</p>
+              <p className="text-slate-700 text-md ">{label}</p>
             </TooltipContent>
           </PopoverTrigger>
         </Tooltip>
