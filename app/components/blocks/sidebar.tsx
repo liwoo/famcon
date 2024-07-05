@@ -13,7 +13,7 @@ import { ProfileDropdown } from "./profile-dropdown";
 import { NavItem } from "../atoms/nav-item";
 import { CollapsibleChild, CollapsibleItem } from "../atoms/collapsible-item";
 import { navItems, secondaryNavItems } from "@/data/nav";
-import { FC, useState } from "react";
+import { FC, useRef, useState } from "react";
 import { cn } from "@/lib/styles";
 
 interface SidebarProps {
@@ -26,6 +26,14 @@ const Sidebar: FC<SidebarProps> = ({
   toggleSidebar,
 }) => {
   // TODO(glen): Move this to a separate file
+  const searchInputRef = useRef<HTMLInputElement | null>(null);
+
+  const handleSearchIconClick = () => {
+    toggleSidebar(); // Maximize the sidebar
+    setTimeout(() => {
+      searchInputRef.current?.focus(); // Focus the search input after the sidebar is maximized
+    }, 0);
+  };
 
   return (
     <div className="hidden bg-muted/40 md:block">
@@ -55,7 +63,7 @@ const Sidebar: FC<SidebarProps> = ({
           {minimalSidebar ? (
             <div
               className="relative items-center flex justify-center cursor-pointer"
-              onClick={toggleSidebar}
+              onClick={handleSearchIconClick}
             >
               <Search className="absolute left-4 ml-3 top-2.5 s-6 text-muted-foreground hover:text-black" />
               {/* TODO: automatically set focus to the search inpu field */}
@@ -65,6 +73,7 @@ const Sidebar: FC<SidebarProps> = ({
               <div className="relative">
                 <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
                 <Input
+                  ref={searchInputRef}
                   type="search"
                   placeholder="Search products..."
                   className="w-full appearance-none bg-background pl-8 shadow-none"
