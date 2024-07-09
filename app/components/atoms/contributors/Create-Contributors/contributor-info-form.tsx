@@ -12,11 +12,11 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 // form schema
 const formSchema = z.object({
-  firstName: z.string().min(2, { message: "FirstName is required " }).max(50),
-  lastName: z.string().min(2, { message: "LastName is required " }).max(50),
+  username: z.string().min(2, { message: "Username is required " }).max(50),
 });
 
 export function ContributorInfoForm() {
@@ -24,8 +24,7 @@ export function ContributorInfoForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      firstName: "",
-      lastName: "",
+      username: "",
     },
   });
 
@@ -35,36 +34,30 @@ export function ContributorInfoForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form
+        className={"grid items-start gap-4"}
+        onSubmit={form.handleSubmit(onSubmit)}
+      >
+        <div className="grid gap-2">
+          <Label htmlFor="email">Email</Label>
+          <Input type="email" id="email" defaultValue="shadcn@example.com" />
+        </div>
         <FormField
           control={form.control}
-          name="firstName"
+          name="username"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>FirstName</FormLabel>
+              <FormLabel>Username</FormLabel>
               <FormControl>
-                <Input placeholder="type first name" {...field} />
-                <FormMessage />
+                <Input id="username" {...field} />
               </FormControl>
+              <FormMessage>
+                {form.formState.errors.username?.message}
+              </FormMessage>
             </FormItem>
           )}
-        ></FormField>
-
-        <FormField
-          control={form.control}
-          name="lastName"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>LastName</FormLabel>
-              <FormControl>
-                <Input placeholder="type last name" {...field} />
-                <FormMessage />
-              </FormControl>
-            </FormItem>
-          )}
-        ></FormField>
-
-        <Button type="submit">Submit</Button>
+        />
+        <Button type="submit">Save changes</Button>
       </form>
     </Form>
   );

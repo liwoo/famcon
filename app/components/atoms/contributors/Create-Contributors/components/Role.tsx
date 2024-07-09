@@ -25,8 +25,8 @@ const Role = () => {
       <SelectContent>
         <SelectGroup>
           <SelectLabel>Location</SelectLabel>
-          <SelectItem value="apple">Kigali International Airport</SelectItem>
-          <SelectItem value="banana">Galaxy Hotel</SelectItem>
+          <SelectItem value="apple">Admin</SelectItem>
+          <SelectItem value="banana">Basic Contributors</SelectItem>
         </SelectGroup>
       </SelectContent>
     </Select>
