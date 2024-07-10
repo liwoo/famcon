@@ -210,7 +210,7 @@
     }
 
     .shad-input-label {
-        @apply text-14-medium text-dark-700 !important;
+        @apply text-14-medium text-black dark:text-white !important;
     }
 
     .shad-input {

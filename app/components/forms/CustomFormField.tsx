@@ -120,13 +120,13 @@ const RenderInput = ({ field, props }: { field: any; props: CustomProps }) => {
                   {date ? format(date, "PPP") : <span>Pick a date</span>}
                 </Button>
               </PopoverTrigger>
-              <PopoverContent className="w-auto p-0" align="start">
+              <PopoverContent className="w-auto p-2 m-4" align="center">
                 <Calendar
                   mode="single"
                   selected={field.value}
                   captionLayout="dropdown-buttons"
                   onSelect={(selectedDate) => {
-                    setDate(selectedDate);
+                    setDate(selectedDate!);
                     field.onChange(selectedDate);
                   }}
                   initialFocus
