@@ -26,6 +26,18 @@ module.exports = {
       },
 
       colors: {
+        light: {
+          200: "#E8E9E9",
+        },
+        dark: {
+          200: "#0D0F10",
+          300: "#131619",
+          400: "#1A1D21",
+          500: "#363A3D",
+          600: "#76828D",
+          700: "#ABB8C4",
+        },
+
         border: lightDarkVar("border"),
         input: lightDarkVar("input"),
         ring: lightDarkVar("ring"),

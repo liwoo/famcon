@@ -7,6 +7,7 @@ import {
   isRouteErrorResponse,
   useRouteError,
 } from "@remix-run/react";
+import { Toaster } from "./components/ui/toaster";
 
 import { GlobalPendingIndicator } from "@/components/global-pending-indicator";
 import {
@@ -32,6 +33,7 @@ function App({ children }: { children: React.ReactNode }) {
         {children}
         <ScrollRestoration />
         <Scripts />
+        <Toaster />
       </body>
     </ThemeSwitcherSafeHTML>
   );
