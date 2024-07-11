@@ -79,7 +79,7 @@ export function DataTable<TData, TValue>({
           className="max-w-sm"
         />
         <Button
-          className="ml-4 bg-green-600"
+          className="ml-4 bg-teal-900"
           onClick={() => exportTableToCSV(table)}
         >
           Export to CSV
@@ -88,7 +88,7 @@ export function DataTable<TData, TValue>({
           <DropdownMenuTrigger asChild>
             <Button
               variant="outline"
-              className="ml-auto bg-orange-600 text-white"
+              className="ml-auto bg-[#e76f51] text-white"
             >
               Columns
             </Button>
