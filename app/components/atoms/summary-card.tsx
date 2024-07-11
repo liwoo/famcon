@@ -5,7 +5,7 @@ interface SummaryCardProps {
   title: string;
   icon: LucideIcon;
   mainValue: string;
-  details: string;
+  details?: string;
 }
 
 export const SummaryCard = ({
