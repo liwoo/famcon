@@ -3,22 +3,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 // shadcn dependencies
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import CustomFormField, {
   FormFieldType,
 } from "@/components/forms/CustomFormField";
-import { Phone } from "lucide-react";
 import { isValidPhoneNumber } from "react-phone-number-input";
 import { toast } from "@/components/ui/use-toast";
+import { Form } from "@/components/ui/form";
 
 // form schema
 const formSchema = z.object({
@@ -60,10 +50,8 @@ export function ContributorInfoForm() {
 
   return (
     <Form {...form}>
-      <form
-        className={"grid items-start gap-4"}
-        onSubmit={form.handleSubmit(onSubmit)}
-      >
+      <form onSubmit={form.handleSubmit(onSubmit)}>
+        <div></div>
         <CustomFormField
           fieldType={FormFieldType.INPUT}
           control={form.control}

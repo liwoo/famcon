@@ -60,6 +60,7 @@
     "react-gauge-component": "^1.2.21",
     "react-hook-form": "^7.51.5",
     "react-phone-number-input": "^3.4.3",
+    "recharts": "^2.12.7",
     "remix-utils": "7.5.0",
     "sonner": "^1.5.0",
     "tailwind-merge": "2.2.1",
