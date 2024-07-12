@@ -92,7 +92,11 @@ export function ContributorInfoForm() {
           dateFormat="MM/dd/yyyy  -  h:mm aa"
         />
 
-        <Button type="submit">Create User</Button>
+        <div className="flex items-end justify-end">
+          <Button className="mt-8" type="submit" size="lg">
+            Create User
+          </Button>
+        </div>
       </form>
     </Form>
   );

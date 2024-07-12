@@ -39,7 +39,7 @@ const chartConfig = {
 
 export function NewChart() {
   return (
-    <Card>
+    <Card className="shadow-none border-none">
       <CardContent>
         <ChartContainer config={chartConfig}>
           <AreaChart
