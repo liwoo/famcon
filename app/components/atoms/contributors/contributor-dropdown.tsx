@@ -19,7 +19,7 @@ export const ContributorDropdown = () => {
       <DropdownMenuTrigger asChild>
         <Button
           variant="outline"
-          className="border-[1px] gap-2 rounded-[4px] p-[16px] font-ligh"
+          className="border-[1px] gap-2 rounded-lg p-[16px] font-ligh"
         >
           Contributor Type
           <ChevronDownIcon className="size-[20px]" />

@@ -79,7 +79,7 @@ export const RecentSales = () => {
       <CardHeader>
         <CardTitle>Recent Sales</CardTitle>
       </CardHeader>
-      <CardContent className="grid gap-8">
+      <CardContent className="grid gap-8 overflow-hidden">
         {recentSales.map((sale) => (
           <div className="flex items-center gap-4" key={sale.name}>
             <Avatar className="hidden h-9 w-9 sm:flex">
@@ -90,7 +90,9 @@ export const RecentSales = () => {
               <p className="text-sm font-medium leading-none">{sale.name}</p>
               <p className="text-sm text-muted-foreground">{sale.email}</p>
             </div>
-            <div className="ml-auto font-medium">{sale.amount}</div>
+            <div className="ml-auto font-medium overflow-hidden">
+              {sale.amount}
+            </div>
           </div>
         ))}
       </CardContent>

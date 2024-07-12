@@ -7,36 +7,20 @@ interface NavItemProps {
   children?: NavItemProps[];
 }
 
+export interface TContributors {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  gender: string;
+  dependent: boolean;
+  contributionAmount: number;
+  contributiionMethod: "monthly" | "annual";
+  dateJoined: Date;
+}
+
 interface ContributorsDetailsProps {
   title: string;
   value: string;
   color: string;
-}
-
-export interface SearchParams {
-  [key: string]: string | string[] | undefined;
-}
-
-export interface Option {
-  label: string;
-  value: string;
-  icon?: React.ComponentType<{ className?: string }>;
-  withCount?: boolean;
-}
-
-export interface DataTableFilterField<TData> {
-  label: string;
-  value: keyof TData;
-  placeholder?: string;
-  options?: Option[];
-}
-
-export interface DataTableFilterOption<TData> {
-  id: string;
-  label: string;
-  value: keyof TData;
-  options: Option[];
-  filterValues?: string[];
-  filterOperator?: string;
-  isMulti?: boolean;
 }
