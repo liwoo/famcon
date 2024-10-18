@@ -22,17 +22,16 @@ interface SidebarProps {
   className?: string;
 }
 
-const Sidebar: FC<SidebarProps> = ({
+const MdtoSmSidebar: FC<SidebarProps> = ({
   minimalSidebar = false,
   toggleSidebar,
   className,
 }) => {
   // TODO(glen): Move this to a separate file
-  //
 
   return (
-    <div className={cn("hidden bg-muted/40 md:block", className)}>
-      <div className="flex m-4 mt-0 border bg-card rounded-md h-[97%] lg:fixed flex-col gap-2">
+    <div className={cn("bg-muted/40 h-screen w-full", className)}>
+      <div className="flex m-4 mt-0  rounded-md h-[97%] lg:fixed flex-col gap-2">
         <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
           {!minimalSidebar ? (
             <Link to="/" className="flex items-center gap-2 font-semibold">
@@ -40,7 +39,7 @@ const Sidebar: FC<SidebarProps> = ({
               <span className="">FamCon</span>
             </Link>
           ) : null}
-          <Button
+          {/* <Button
             variant="outline"
             size="icon"
             className="ml-auto h-8 w-8"
@@ -52,7 +51,7 @@ const Sidebar: FC<SidebarProps> = ({
               <ChevronLeft className="h-4 w-4" />
             )}
             <span className="sr-only">Toggle Sidebar</span>
-          </Button>
+          </Button> */}
         </div>
         <div className="flex-1">
           {minimalSidebar ? (
@@ -135,7 +134,7 @@ const Sidebar: FC<SidebarProps> = ({
             </div>
           </nav>
         </div>
-        <div className="mt-auto p-4 w-full overflow-hidden">
+        <div className="mt-auto p-4 w-full sm:w-[300px] overflow-hidden">
           <ProfileDropdown withMinimal={minimalSidebar} />
         </div>
       </div>
@@ -143,4 +142,4 @@ const Sidebar: FC<SidebarProps> = ({
   );
 };
 
-export default Sidebar;
+export default MdtoSmSidebar;
