@@ -1,4 +1,4 @@
-import { ContributorsSummaryData } from '@/data/contributors';
+import { ContributorsSummaryData } from '@/data/contributors/contributors-summary';
 
 export const ContributorsDetails = () => {
     return (

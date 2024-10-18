@@ -1,38 +1,51 @@
-import MainLayout from "@/components/layouts/MainLayout";
+import MainLayout from '@/components/layouts/MainLayout';
 
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 
-import { DemographicMap } from "@/components/atoms/role-demographics/demographic-map";
-import { ContributorSummaryCard } from "@/components/atoms/contributors/contributor-summary-card";
+import { ContributorSummaryCard } from '@/components/atoms/contributors/contributor-summary-card';
 
-import { Card } from "@/components/ui/card";
-import { columns } from "@/components/contributions/columns";
-import { Plus } from "lucide-react";
+import { Card } from '@/components/ui/card';
+import { Plus } from 'lucide-react';
 
-import { DataTable } from "@/components/contributions/data-table";
-import { contributors } from "@/components/contributions/data";
+import { columns } from './components/columns';
+import { contributors } from '@/data/contributors/data';
+import { CrudList } from '@/components/blocks/crud-list';
+import { TContributor, TPartialContributor } from '@/@types/contributors';
+import { ContributorService } from '@/services/contributors/contributor-service';
+import { useNavigate } from '@remix-run/react';
 
+// @Authorized(['admin'])
 export default function Contributors() {
-  return (
-    <MainLayout
-      title="Contributors"
-      action={
-        <Button className="bg-teal-900">
-          <Plus /> Add Contributor
-        </Button>
-      }
-    >
-      <div className="flex flex-col gap-4">
-        <div className="flex gap-2 w-full">
-          <ContributorSummaryCard />
-        </div>
-        <Card className="p-4">
-          {/* table goes here */}
+    const navigate = useNavigate();
 
-          {/* <DataTableSkeleton columnCount={10} /> */}
-          <DataTable columns={columns} data={contributors} />
-        </Card>
-      </div>
-    </MainLayout>
-  );
+    return (
+        <MainLayout
+            title="Contributors"
+            action={
+                <Button
+                    className="bg-teal-900"
+                    onClick={() => navigate('/contributors/create')}
+                >
+                    <Plus /> Add Contributor
+                </Button>
+            }
+        >
+            <div className="flex flex-col gap-4">
+                <div className="flex gap-2 w-full">
+                    <ContributorSummaryCard />
+                </div>
+                <Card className="p-4">
+                    <CrudList<
+                        TPartialContributor,
+                        TContributor,
+                        ContributorService
+                    >
+                        columns={columns}
+                        data={contributors}
+                        baseRoute={'/contributors'}
+                    ></CrudList>
+                </Card>
+            </div>
+        </MainLayout>
+    );
 }
