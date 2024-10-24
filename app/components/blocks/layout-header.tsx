@@ -11,6 +11,16 @@ import {
 import { Button } from '../ui/button';
 
 import {
+    Sheet,
+    SheetTrigger,
+    SheetClose,
+    SheetDescription,
+    SheetTitle,
+    SheetContent,
+    SheetHeader,
+    SheetFooter,
+} from '../ui/sheet';
+import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
@@ -26,6 +36,10 @@ import {
 } from '@/components/theme-switcher';
 import { LanguageItem } from '../atoms/language-item';
 import { cn } from '@/lib/utils';
+import { Label } from '../ui/label';
+import { Input } from '../ui/input';
+import Sidebar from './sidebar';
+import MdtoSmSidebar from './md-sm-sidebar';
 
 interface LayoutHeaderProps {
     title?: string;
@@ -56,7 +70,7 @@ const LayoutHeader = ({
         //TODO: Render a submenu modal
         console.log('show submenu');
     }, []);
-
+    const shouldShowSidebar = isTablet || isMobile;
     const langaugeArray = [
         '🇺🇸 English',
         '🇫🇷 French',
@@ -72,12 +86,26 @@ const LayoutHeader = ({
                 `lg:fixed bg-card border rounded-lg flex items-center justify-between p-4 lg:p-6 mx-auto`
             )}
         >
-            <p className="flex gap-x-2 items-center">
-                {isTablet && (
-                    <MenuIcon onClick={onToggleTabletMenu} className="size-6" />
+            <div className="flex gap-x-2 items-center">
+                {shouldShowSidebar && (
+                    <Sheet>
+                        <SheetTrigger asChild>
+                            <MenuIcon className="size-6" />
+                        </SheetTrigger>
+                        <SheetContent
+                            side="left"
+                            className="rounded-r-3xl h-full w-[90%] lg:w-[300px] px-1"
+                        >
+                            <MdtoSmSidebar
+                                toggleSidebar={showSubmenu}
+                                className="rounded-none border-none cursor-pointer"
+                            />
+                        </SheetContent>
+                        <SheetClose />
+                    </Sheet>
                 )}
                 <h1 className="text-xl">{title}</h1>
-            </p>
+            </div>
             {isMobile && (
                 <EllipsisIcon onClick={showSubmenu} className="size-6" />
             )}
@@ -132,33 +160,45 @@ const LayoutHeader = ({
                         <DropdownMenuContent className="mt-2">
                             <DropdownMenuLabel>Theme</DropdownMenuLabel>
                             <DropdownMenuSeparator />
-                            <DropdownMenuItem asChild>
+                            <DropdownMenuItem
+                                asChild
+                                className="flex items-center gap-2"
+                            >
                                 <button
                                     type="button"
                                     className="w-full"
                                     onClick={() => setTheme('light')}
                                     aria-selected={theme === 'light'}
                                 >
+                                    <SunIcon className="size-6" />
                                     Light
                                 </button>
                             </DropdownMenuItem>
-                            <DropdownMenuItem asChild>
+                            <DropdownMenuItem
+                                asChild
+                                className="flex items-center gap-2"
+                            >
                                 <button
                                     type="button"
                                     className="w-full"
                                     onClick={() => setTheme('dark')}
                                     aria-selected={theme === 'dark'}
                                 >
+                                    <MoonIcon className="size-6" />
                                     Dark
                                 </button>
                             </DropdownMenuItem>
-                            <DropdownMenuItem asChild>
+                            <DropdownMenuItem
+                                asChild
+                                className="flex items-center gap-2"
+                            >
                                 <button
                                     type="button"
                                     className="w-full"
                                     onClick={() => setTheme('system')}
                                     aria-selected={theme === 'system'}
                                 >
+                                    <LaptopIcon className="size-6" />
                                     System
                                 </button>
                             </DropdownMenuItem>
