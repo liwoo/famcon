@@ -6,7 +6,7 @@ import { TPartialContributor } from '@/@types/contributors';
 export const contributors: TPartialContributor[] = [
     {
         id: '1',
-        firstName: 'Emma',
+        firstName: 'Yamie',
         lastName: 'Johnson',
         email: 'emma.johnson@email.com',
         gender: 'Female',
@@ -17,7 +17,7 @@ export const contributors: TPartialContributor[] = [
     },
     {
         id: '2',
-        firstName: 'Liam',
+        firstName: 'Liwu',
         lastName: 'Smith',
         email: 'liam.smith@email.com',
         gender: 'Male',
@@ -28,7 +28,7 @@ export const contributors: TPartialContributor[] = [
     },
     {
         id: '3',
-        firstName: 'Olivia',
+        firstName: 'Daniel',
         lastName: 'Brown',
         email: 'olivia.brown@email.com',
         gender: 'Female',

@@ -2,21 +2,27 @@ import MainLayout from '@/components/layouts/MainLayout';
 
 import { Button } from '@/components/ui/button';
 
-import { ContributorSummaryCard } from '@/components/atoms/contributors/contributor-summary-card';
-
 import { Card } from '@/components/ui/card';
 import { Plus } from 'lucide-react';
 
 import { columns } from './components/columns';
-import { contributors } from '@/data/contributors/data';
 import { CrudList } from '@/components/blocks/crud-list';
 import { TContributor, TPartialContributor } from '@/@types/contributors';
 import { ContributorService } from '@/services/contributors/contributor-service';
-import { useNavigate } from '@remix-run/react';
+import { useLoaderData, useNavigate } from '@remix-run/react';
+import { ContributorSummaryCard } from './components/contributor-summary-card';
+import { LoaderFunction, json } from '@remix-run/node';
+
+export const loader: LoaderFunction = async () => {
+    const service = new ContributorService();
+    const contributors = await service.getAll();
+    return json({ contributors });
+};
 
 // @Authorized(['admin'])
 export default function Contributors() {
     const navigate = useNavigate();
+    const { contributors } = useLoaderData<typeof loader>();
 
     return (
         <MainLayout
@@ -38,11 +44,13 @@ export default function Contributors() {
                     <CrudList<
                         TPartialContributor,
                         TContributor,
+                        TContributor,
                         ContributorService
                     >
                         columns={columns}
                         data={contributors}
                         baseRoute={'/contributors'}
+                        title="Contributors"
                     ></CrudList>
                 </Card>
             </div>

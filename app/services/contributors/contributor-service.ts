@@ -1,10 +1,14 @@
 import { ICrudService } from '@/@types';
 import { TContributor, TPartialContributor } from '@/@types/contributors';
+import { contributors } from '@/data/contributors/data';
 
-export class ContributorService implements ICrudService<TContributor> {
-    async getAll(): Promise<TContributor[]> {
+export class ContributorService
+    implements ICrudService<TPartialContributor, TContributor, TContributor>
+{
+    async getAll(): Promise<TPartialContributor[]> {
         // Implementation
-        throw new Error('Method not implemented.');
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        return contributors;
     }
 
     async getById(id: string): Promise<TContributor> {

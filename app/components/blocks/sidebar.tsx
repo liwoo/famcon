@@ -12,9 +12,9 @@ import { Input } from '../ui/input';
 import { ProfileDropdown } from './profile-dropdown';
 import { NavItem } from '../atoms/nav-item';
 import { CollapsibleChild, CollapsibleItem } from '../atoms/collapsible-item';
-import { navItems, secondaryNavItems } from '@/data/nav';
 import { FC, Key, useState } from 'react';
 import { cn } from '@/lib/styles';
+import { navItems, secondaryNavItems } from '@/config/nav';
 
 interface SidebarProps {
     minimalSidebar?: boolean;

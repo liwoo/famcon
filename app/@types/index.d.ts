@@ -11,10 +11,14 @@ interface NavItemProps {
     children?: NavItemProps[];
 }
 
-export interface ICrudService<T extends Identifiable> {
-    getAll(): Promise<T[]>;
-    getById(id: string): Promise<T>;
-    create(item: Omit<T, 'id'>): Promise<T>;
-    update(id: string, item: Partial<T>): Promise<T>;
+export interface ICrudService<
+    TListable extends Identifiable,
+    TCreateUpdate extends Identifiable,
+    TModel extends Identifiable
+> {
+    getAll(): Promise<TListable[]>;
+    getById(id: string): Promise<TModel>;
+    create(item: Omit<TCreateUpdate, 'id'>): Promise<TModel>;
+    update(id: string, item: Partial<TCreateUpdate>): Promise<TModel>;
     delete(id: string): Promise<void>;
 }

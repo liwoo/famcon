@@ -61,7 +61,7 @@ export const columns: ColumnDef<TPartialContributor>[] = [
     },
     {
         accessorKey: 'lastName',
-        header: 'Last Name',
+        header: 'Surname',
     },
     {
         accessorKey: 'email',
